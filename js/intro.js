@@ -77,3 +77,26 @@ function typeWriter(text, el, cb) {
   }
   t();
 }
+
+/* INTRO HAHMO  */
+function showCharacter(i) {
+  const c = characters[i];
+  characterAvatar.textContent = c.avatar;
+  characterAvatar.className = "avatar " + c.cssClass;
+  characterName.textContent = c.name;
+
+  setTimeout(() => speak(c.dialogue), 400);
+  setTimeout(() => {
+    typeWriter(c.dialogue, dialogueText, () => {
+      setTimeout(() => {
+        if (currentCharacterIndex < characters.length - 1) {
+          currentCharacterIndex++;
+          updateProgressDots();
+          showCharacter(currentCharacterIndex);
+        } else {
+          showMenu();
+        }
+      }, 1200);
+    });
+  }, 500);
+}
