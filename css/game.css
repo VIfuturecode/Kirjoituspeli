@@ -1,0 +1,328 @@
+/* PELIN TAUSTAT */
+body.easy-bg {
+    background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #10b981 100%);
+  }
+  
+  body.medium-bg {
+    background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #f59e0b 100%);
+  }
+  
+  body.hard-bg {
+    background: linear-gradient(135deg, #450a0a 0%, #991b1b 50%, #dc2626 100%);
+  }
+  
+  /* VALIKKO NÄKYMÄ */
+  #menu-scene {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .menu-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1rem, 3.5vw, 1.75rem);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  
+  .menu-subtitle {
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2.5rem;
+  }
+  
+  /* VAIKEUS TASO */
+  .difficulty-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 850px;
+    width: 100%;
+  }
+  
+  .difficulty-card {
+    padding: 2rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 1rem;
+    border: 2px solid rgba(255,255,255,0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: slideUp 0.5s ease-out backwards;
+  }
+  
+  .difficulty-card:nth-child(1) { animation-delay: 0s; }
+  .difficulty-card:nth-child(2) { animation-delay: 0.15s; }
+  .difficulty-card:nth-child(3) { animation-delay: 0.3s; }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .difficulty-card:hover {
+    transform: scale(1.05);
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 0 30px rgba(99,102,241,0.3);
+  }
+  
+  .difficulty-card[data-difficulty="easy"]:hover {
+    border-color: rgba(16,185,129,0.7);
+    box-shadow: 0 0 30px rgba(16,185,129,0.4);
+  }
+  
+  .difficulty-card[data-difficulty="medium"]:hover {
+    border-color: rgba(245,158,11,0.7);
+    box-shadow: 0 0 30px rgba(245,158,11,0.4);
+  }
+  
+  .difficulty-card[data-difficulty="hard"]:hover {
+    border-color: rgba(239,68,68,0.7);
+    box-shadow: 0 0 30px rgba(239,68,68,0.4);
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: inline-block;
+  }
+  
+  .easy-icon { background: rgba(16,185,129,0.2); }
+  .medium-icon { background: rgba(245,158,11,0.2); }
+  .hard-icon { background: rgba(239,68,68,0.2); }
+  
+  .difficulty-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  
+  .difficulty-english {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stars { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  
+  .description {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+  }
+  
+  .replay-button {
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .replay-button:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+  
+  /* SYDÄMET */
+  .hearts {
+    display: inline-flex;
+    gap: 0.25rem;
+    font-size: 1.3rem;
+  }
+  
+  .heart {
+    color: #ef4444;
+    transition: opacity 0.3s ease;
+  }
+  
+  .heart.empty {
+    opacity: 0.3;
+  }
+  
+  /* PELI NÄKYMÄ */
+  #game-scene {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  #game-scene header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  #game-scene header h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+  }
+  
+  #game-scene header > div {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    background: rgba(99,102,241,0.8);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background: rgba(99,102,241,1);
+    transform: scale(1.05);
+  }
+  
+  .hud {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .hud-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  #game-scene main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .overlay.active { display: flex; }
+  
+  .overlay h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.5rem;
+  }
+  
+  #game-scene footer {
+    padding: 1rem 1.5rem;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    text-align: center;
+  }
+  
+  #game-scene footer p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.5rem;
+  }
+  
+  #input-text {
+    width: 100%;
+    max-width: 500px;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+  #input-text:focus {
+    outline: none;
+    border-color: rgba(99,102,241,0.7);
+    box-shadow: 0 0 15px rgba(99,102,241,0.3);
+  }
+  
+  #input-text::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  
+  #difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  #difficulty-badge.easy { background: rgba(16,185,129,0.3); color: #10b981; }
+  #difficulty-badge.medium { background: rgba(245,158,11,0.3); color: #f59e0b; }
+  #difficulty-badge.hard { background: rgba(239,68,68,0.3); color: #ef4444; }
+  
+  /* SÄÄTIMET (controls) */
+  .controls {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+  }
+  
+  .control-btn {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+  }
+  
+  .control-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+  }
+  
+  #mute-btn-game {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: rgba(99,102,241,0.8);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #mute-btn-game:hover {
+    background: rgba(99,102,241,1);
+    transform: scale(1.05);
+  }
+  
