@@ -50,3 +50,13 @@ function updateProgressDots() {
     else if (i < currentCharacterIndex) dot.classList.add("completed");
   });
 }
+
+/* PUHE */
+function speak(text) {
+  if (isMuted || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "fi-FI";
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
