@@ -130,6 +130,22 @@ body.hard-bg {
   color: #fff;
 }
 
+/* SYDÄMET */
+.hearts {
+  display: inline-flex;
+  gap: 0.25rem;
+  font-size: 1.3rem;
+}
+
+.heart {
+  color: #ef4444;
+  transition: opacity 0.3s ease;
+}
+
+.heart.empty {
+  opacity: 0.3;
+}
+
 /* PELI NÄKYMÄ */
 #game-scene {
   display: flex;
@@ -264,5 +280,49 @@ body.hard-bg {
 #difficulty-badge.easy { background: rgba(16,185,129,0.3); color: #10b981; }
 #difficulty-badge.medium { background: rgba(245,158,11,0.3); color: #f59e0b; }
 #difficulty-badge.hard { background: rgba(239,68,68,0.3); color: #ef4444; }
+
+/* SÄÄTIMET (controls) */
+.controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 100;
+}
+
+.control-btn {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.05);
+}
+
+#mute-btn-game {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  background: rgba(99,102,241,0.8);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#mute-btn-game:hover {
+  background: rgba(99,102,241,1);
+  transform: scale(1.05);
+}
 
   
