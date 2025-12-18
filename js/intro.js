@@ -60,3 +60,20 @@ function speak(text) {
   u.rate = 0.9;
   window.speechSynthesis.speak(u);
 }
+
+/* TYPEWRITER */
+function typeWriter(text, el, cb) {
+  el.innerHTML = "";
+  let i = 0;
+  function t() {
+    if (i < text.length) {
+      el.innerHTML = text.slice(0, i + 1) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(t, 60);
+    } else {
+      el.textContent = text;
+      if (cb) cb();
+    }
+  }
+  t();
+}
