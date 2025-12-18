@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body class="intro-bg">
-  
+
   <!-- CONTROLS -->
   <div class="controls">
     <button id="mute-btn" class="control-btn">Ääni</button>
@@ -30,6 +30,36 @@
       <p id="dialogue-text"></p>
     </div>
     <div id="progress-dots"></div>
+  </div>
+
+  <!-- MENU SCENE -->
+  <div id="menu-scene" class="hidden">
+    <h1 class="menu-title">VALITSE VAIKEUSTASO</h1>
+    <p class="menu-subtitle">Jokaisella tasolla on oma maailmansa</p>
+    <div class="difficulty-cards">
+      <div class="difficulty-card" data-difficulty="easy">
+        <div class="card-icon easy-icon">&#127794;</div>
+        <h3>Helppo</h3>
+        <p class="difficulty-english">Vihrea metsä</p>
+        <div class="stars">&#11088;</div>
+        <p class="description">Rauhallinen metsämaisema aloittelijoille</p>
+      </div>
+      <div class="difficulty-card" data-difficulty="medium">
+        <div class="card-icon medium-icon">&#9876;&#65039;</div>
+        <h3>Keskitaso</h3>
+        <p class="difficulty-english">Kultainen aavikko</p>
+        <div class="stars">&#11088;&#11088;</div>
+        <p class="description">Kuuma aavikko haastetta hakeville</p>
+      </div>
+      <div class="difficulty-card" data-difficulty="hard">
+        <div class="card-icon hard-icon">&#128293;</div>
+        <h3>Vaikea</h3>
+        <p class="difficulty-english">Tulinen helvetti</p>
+        <div class="stars">&#11088;&#11088;&#11088;</div>
+        <p class="description">ÄÄrimmäinen haaste ammattilaisille</p>
+      </div>
+    </div>
+    <button id="replay-btn" class="replay-button">Katso intro uudelleen</button>
   </div>
 
 </body>
