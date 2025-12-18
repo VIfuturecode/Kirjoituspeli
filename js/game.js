@@ -23,3 +23,15 @@ let score = 0;
 let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
+
+/* SYDÄMET  */
+function renderLives() {
+  livesDisplay.innerHTML = "";
+  for (let i = 0; i < maxLives; i++) {
+    const h = document.createElement("span");
+    h.textContent = "❤️";
+    h.className = "heart";
+    if (i >= lives) h.classList.add("empty");
+    livesDisplay.appendChild(h);
+  }
+}
