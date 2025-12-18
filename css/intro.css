@@ -1,0 +1,149 @@
+/* YLEINEN  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  /* INTRO BACKGROUND */
+  body.intro-bg {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+  
+  .hidden { display: none !important; }
+  
+  /* INTRO SCENE */
+  #intro-scene {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+  }
+  
+  .sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(99, 102, 241, 0.6);
+    border-radius: 50%;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+  
+  /* HAHMOT */
+  .avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5rem;
+    box-shadow: 0 0 60px rgba(99,102,241,0.4);
+    border: 4px solid rgba(255,255,255,0.2);
+    animation: float 3s ease-in-out infinite, fadeIn 0.6s ease-out;
+    margin-bottom: 2rem;
+  }
+  
+  .avatar.wizard { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+  .avatar.knight { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+  .avatar.sage { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* VALINTA IKKUNA */
+  #dialogue-box {
+    max-width: 700px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 1.5rem;
+    border: 2px solid rgba(255,255,255,0.2);
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  #character-name {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1.5rem;
+    background: rgba(30,30,50,0.95);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  #dialogue-text {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    min-height: 2.5em;
+  }
+  
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background: #fff;
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  /* EDISTYMIS PISTEET */
+  #progress-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .dot.active { background: #6366f1; transform: scale(1.3); }
+  .dot.completed { background: rgba(99,102,241,0.6); }
