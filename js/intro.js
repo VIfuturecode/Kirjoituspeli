@@ -118,3 +118,16 @@ function showIntro() {
   updateProgressDots();
   showCharacter(0);
 }
+
+/* EVENTIT */
+muteBtn.onclick = () => {
+  isMuted = !isMuted;
+  muteBtn.textContent = isMuted ? "Mykistetty" : "Ääni";
+};
+skipBtn.onclick = showMenu;
+replayBtn.onclick = showIntro;
+
+/* START */
+createSparkles();
+initProgressDots();
+showCharacter(0);
