@@ -35,3 +35,37 @@ function renderLives() {
     livesDisplay.appendChild(h);
   }
 }
+
+/* ALOITA PELI  */
+function startGame(diff) {
+  selectedDifficulty = diff;
+  document.body.className = diff + "-bg";
+
+  difficultyBadge.className = diff;
+  difficultyBadge.textContent =
+    diff === "easy" ? "HELPPO" :
+    diff === "medium" ? "KESKITASO" : "VAIKEA";
+
+  introScene.classList.add("hidden");
+  menuScene.classList.add("hidden");
+  gameScene.classList.remove("hidden");
+
+  score = 0;
+  scoreDisplay.textContent = score;
+
+  if (diff === "easy") maxLives = 5;
+  else if (diff === "medium") maxLives = 3;
+  else maxLives = 2;
+
+  lives = maxLives;
+  renderLives();
+
+  gamePaused = false;
+  gameOver = false;
+
+  pauseOverlay.classList.remove("active");
+  gameoverOverlay.classList.remove("active");
+
+  resizeCanvas();
+  inputText.focus();
+}
