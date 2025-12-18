@@ -10,4 +10,125 @@ body.medium-bg {
 body.hard-bg {
   background: linear-gradient(135deg, #450a0a 0%, #991b1b 50%, #dc2626 100%);
 }
+/* VALIKKO NÄKYMÄ */
+#menu-scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+  
+.menu-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1rem, 3.5vw, 1.75rem);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+  
+.menu-subtitle {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 2.5rem;
+}
+  
+/* VAIKEUS TASO */
+.difficulty-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 850px;
+  width: 100%;
+}
+  
+.difficulty-card {
+  padding: 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 1rem;
+  border: 2px solid rgba(255,255,255,0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease-out backwards;
+}
+  
+.difficulty-card:nth-child(1) { animation-delay: 0s; }
+.difficulty-card:nth-child(2) { animation-delay: 0.15s; }
+.difficulty-card:nth-child(3) { animation-delay: 0.3s; }
+  
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  
+.difficulty-card:hover {
+  transform: scale(1.05);
+  border-color: rgba(99,102,241,0.5);
+  box-shadow: 0 0 30px rgba(99,102,241,0.3);
+}
+  
+.difficulty-card[data-difficulty="easy"]:hover {
+  border-color: rgba(16,185,129,0.7);
+  box-shadow: 0 0 30px rgba(16,185,129,0.4);
+}
+  
+.difficulty-card[data-difficulty="medium"]:hover {
+  border-color: rgba(245,158,11,0.7);
+  box-shadow: 0 0 30px rgba(245,158,11,0.4);
+}
+  
+.difficulty-card[data-difficulty="hard"]:hover {
+  border-color: rgba(239,68,68,0.7);
+  box-shadow: 0 0 30px rgba(239,68,68,0.4);
+}
+  
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: inline-block;
+}
+  
+.easy-icon { background: rgba(16,185,129,0.2); }
+.medium-icon { background: rgba(245,158,11,0.2); }
+.hard-icon { background: rgba(239,68,68,0.2); }
+  
+.difficulty-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+  
+.difficulty-english {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+  
+.stars { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  
+.description {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+}
+  
+.replay-button {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.6);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+  
+.replay-button:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+
   
