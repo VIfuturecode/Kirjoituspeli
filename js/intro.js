@@ -100,3 +100,21 @@ function showCharacter(i) {
     });
   }, 500);
 }
+
+/* SCENET */
+function showMenu() {
+  introScene.classList.add("hidden");
+  menuScene.classList.remove("hidden");
+  skipBtn.classList.add("hidden");
+  document.body.className = "intro-bg";
+}
+
+function showIntro() {
+  currentCharacterIndex = 0;
+  menuScene.classList.add("hidden");
+  introScene.classList.remove("hidden");
+  skipBtn.classList.remove("hidden");
+  document.body.className = "intro-bg";
+  updateProgressDots();
+  showCharacter(0);
+}
