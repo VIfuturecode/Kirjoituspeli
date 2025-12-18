@@ -7,6 +7,7 @@ const characters = [
   
   let currentCharacterIndex = 0;
   let isMuted = false;
+
 /* DOM */
 const introScene = document.getElementById("intro-scene");
 const menuScene = document.getElementById("menu-scene");
@@ -17,4 +18,17 @@ const progressDots = document.getElementById("progress-dots");
 const skipBtn = document.getElementById("skip-btn");
 const muteBtn = document.getElementById("mute-btn");
 const replayBtn = document.getElementById("replay-btn");
+
+/* KIMALLUS */
+function createSparkles() {
+  const container = document.getElementById("sparkles");
+  for (let i = 0; i < 25; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.animationDelay = Math.random() * 2 + "s";
+    container.appendChild(s);
+  }
+}
   
