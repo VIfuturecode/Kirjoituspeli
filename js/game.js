@@ -69,3 +69,12 @@ function startGame(diff) {
   resizeCanvas();
   inputText.focus();
 }
+
+/* CANVAS */
+function resizeCanvas() {
+  const header = gameScene.querySelector("header");
+  const footer = gameScene.querySelector("footer");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - header.offsetHeight - footer.offsetHeight;
+}
+window.addEventListener("resize", resizeCanvas);
