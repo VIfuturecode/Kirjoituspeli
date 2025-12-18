@@ -31,4 +31,22 @@ function createSparkles() {
     container.appendChild(s);
   }
 }
-  
+
+/* EDISTYMIS PISTEET */
+function initProgressDots() {
+  progressDots.innerHTML = "";
+  characters.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    progressDots.appendChild(dot);
+  });
+}
+
+function updateProgressDots() {
+  const dots = progressDots.querySelectorAll(".dot");
+  dots.forEach((dot, i) => {
+    dot.classList.remove("active", "completed");
+    if (i === currentCharacterIndex) dot.classList.add("active");
+    else if (i < currentCharacterIndex) dot.classList.add("completed");
+  });
+}
