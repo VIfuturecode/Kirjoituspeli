@@ -78,3 +78,11 @@ function resizeCanvas() {
   canvas.height = window.innerHeight - header.offsetHeight - footer.offsetHeight;
 }
 window.addEventListener("resize", resizeCanvas);
+
+/* PAUSE */
+function togglePause() {
+  gamePaused = !gamePaused;
+  pauseOverlay.classList.toggle("active", gamePaused);
+}
+pauseBtn.onclick = togglePause;
+resumeBtn.onclick = togglePause;
