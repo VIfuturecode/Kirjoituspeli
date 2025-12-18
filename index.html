@@ -78,18 +78,23 @@
             </div>
         </div> 
     </header>
+    <main>
+      <canvas id="game-canvas"></canvas>
+      <div id="pause-overlay" class="overlay">
+        <h2>Tauko</h2>
+        <button id="resume-btn" class="btn-primary">Jatka peliä</button>
+      </div>
+      <div id="gameover-overlay" class="overlay">
+        <h2>Peli Ohi!</h2>
+        <p>Lopulliset pisteet: <span id="final-score">0</span></p>
+        <button id="restart-btn" class="btn-primary">Pelaa uudelleen</button>
+      </div>
+    </main>
+    <footer>
+      <p>Kirjoita sanat ja paina Enter lähettääksesi | P = Tauko</p>
+      <input type="text" id="input-text" placeholder="Aloita kirjoittamaan..." />
+    </footer>
+  </div>
 
 </body>
-<main>
-  <canvas id="game-canvas"></canvas>
-  <div id="pause-overlay" class="overlay">
-    <h2>Tauko</h2>
-    <button id="resume-btn" class="btn-primary">Jatka peliä</button>
-  </div>
-  <div id="gameover-overlay" class="overlay">
-    <h2>Peli Ohi!</h2>
-    <p>Lopulliset pisteet: <span id="final-score">0</span></p>
-    <button id="restart-btn" class="btn-primary">Pelaa uudelleen</button>
-  </div>
-</main>
 </html>
