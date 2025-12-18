@@ -15,3 +15,11 @@ const livesDisplay = document.getElementById("lives");
 const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
 const muteBtnGame = document.getElementById("mute-btn-game");
+
+/* PELIN TILA  */
+let gamePaused = false;
+let gameOver = false;
+let score = 0;
+let lives = 3;
+let maxLives = 3;
+let selectedDifficulty = "easy";
