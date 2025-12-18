@@ -86,3 +86,20 @@ function togglePause() {
 }
 pauseBtn.onclick = togglePause;
 resumeBtn.onclick = togglePause;
+
+/*  INPUT */
+inputText.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    if (inputText.value.trim()) {
+      lives--;
+      renderLives();
+      inputText.value = "";
+
+      if (lives <= 0) {
+        gameOver = true;
+        gameoverOverlay.classList.add("active");
+        finalScoreDisplay.textContent = score;
+      }
+    }
+  }
+});
