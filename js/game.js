@@ -111,3 +111,23 @@ function gameLoop() {
   }
   requestAnimationFrame(gameLoop);
 }
+
+/* EVENTIT */
+muteBtnGame.onclick = () => {
+  isMuted = !isMuted;
+  muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
+};
+
+menuBtn.onclick = showMenu;
+restartBtn.onclick = () => startGame(selectedDifficulty);
+difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "p") {
+    const active = document.activeElement;
+    if (active !== inputText && !gameScene.classList.contains("hidden")) {
+      e.preventDefault();
+      togglePause();
+    }
+  }
+});
