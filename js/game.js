@@ -131,3 +131,6 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
+
+/* START */
+gameLoop();
