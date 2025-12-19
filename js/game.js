@@ -39,6 +39,9 @@ function renderLives() {
 /* ALOITA PELI  */
 function startGame(diff) {
   selectedDifficulty = diff;
+  // piilotta intro-napit
+  skipBtn.classList.add("hidden");
+  muteBtn.classList.add("hidden");
   document.body.className = diff + "-bg";
 
   difficultyBadge.className = diff;
