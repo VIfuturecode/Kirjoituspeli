@@ -103,3 +103,11 @@ inputText.addEventListener("keydown", e => {
     }
   }
 });
+
+/*  LOOP */
+function gameLoop() {
+  if (!gamePaused && !gameOver && !gameScene.classList.contains("hidden")) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  requestAnimationFrame(gameLoop);
+}
