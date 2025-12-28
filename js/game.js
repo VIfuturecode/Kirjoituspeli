@@ -15,6 +15,11 @@ const livesDisplay = document.getElementById("lives");
 const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
 const muteBtnGame = document.getElementById("mute-btn-game");
+var vaikeatsanat = [];
+var helpotsanat = [];
+//sanatlistaan on funktio joka ottaa tekstitiedostoista sanat ja 
+// laittaa ne yläpuolella oleviin arraysiin
+sanatlistaan();
 
 /* PELIN TILA  */
 let gamePaused = false;
@@ -137,3 +142,31 @@ document.addEventListener("keydown", (e) => {
 
 /* START */
 gameLoop();
+
+//tämä funktio laittaa sanat listoihin vaikeat ja helpot sanat
+function sanatlistaan(){
+  fetch("helpot.txt")
+    .then(r=>r.text())
+    .then(text => {
+      const lines = text.split(/\r?\n/)
+      for(var i = 0; i < lines.length; i++){
+        helpotsanat.push(lines[i])
+      }
+    })
+  fetch("vaikeat.txt")
+    .then(r=>r.text())
+    .then(text => {
+      const lines = text.split(/\r?\n/)
+      for(var i = 0; i < lines.length; i++){
+        vaikeatsanat.push(lines[i])
+      } 
+    })
+}
+//kutsumalla funktiota sana() se palauttaa satunnaisen sanan vaikeustason mukaan
+function sana(){
+  if(selectedDifficulty == "easy" || selectedDifficulty == "medium"){
+    return helpotsanat[Math.floor(Math.random() * helpotsanat.length)];
+  } else {
+    return vaikeatsanat[Math.floor(Math.random() * vaikeatsanat.length)]
+  }
+}
