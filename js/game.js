@@ -221,6 +221,10 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     wordSpawnTimer++;
+    if (wordSpawnTimer >= wordSpawnRate) {
+      spawnWord();
+      wordSpawnTimer = 0;
+    }
   }
   requestAnimationFrame(gameLoop);
 }
