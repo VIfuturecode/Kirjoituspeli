@@ -65,6 +65,21 @@ class Word{
   }
 }
 
+let words = [];
+let wordSpawnTimer = 0;
+let wordSpawnRate = 180;
+
+function spawnWord() {
+  const randomWord = sana();
+  if (randomWord && randomWord.trim() !== "") {
+    const x = Math.random() * (canvas.width - 120) + 60;
+    const y = -40;
+    const speed = selectedDifficulty === "easy" ? 0.8 : 
+                  selectedDifficulty === "medium" ? 1.2 : 1.8;
+    words.push(new Word(randomWord.toLowerCase(), x, y, speed));
+  }
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
