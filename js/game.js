@@ -197,16 +197,20 @@ resumeBtn.onclick = togglePause;
 /*  INPUT */
 inputText.addEventListener("keydown", e => {
   if (e.key === "Enter") {
-    if (inputText.value.trim()) {
-      lives--;
-      renderLives();
-      inputText.value = "";
+    const typedWord = inputText.value.trim();
+    if (typedWord !== "") {
+      const wordFound = checkWord(typedWord);
+      if (!wordFound) {
+        lives--;
+        renderLives();
 
-      if (lives <= 0) {
-        gameOver = true;
-        gameoverOverlay.classList.add("active");
-        finalScoreDisplay.textContent = score;
+        if (lives <= 0) {
+          gameOver = true;
+          gameoverOverlay.classList.add("active");
+          finalScoreDisplay.textContent = score;
+        }
       }
+      inputText.value = "";
     }
   }
 });
