@@ -80,6 +80,26 @@ function spawnWord() {
   }
 }
 
+function updateWords() {
+  for (let i = words.length - 1; i >= 0; i--) {
+    words[i].update();
+    
+    if (words[i].isOffScreen(canvas.height)) {
+      words.splice(i, 1);
+      if (!gameOver) {
+        lives--;
+        renderLives();
+        
+        if (lives <= 0) {
+          gameOver = true;
+          gameoverOverlay.classList.add("active");
+          finalScoreDisplay.textContent = score;
+        }
+      }
+    }
+  }
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
