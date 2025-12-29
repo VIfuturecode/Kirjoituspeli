@@ -151,15 +151,24 @@ function startGame(diff) {
   score = 0;
   scoreDisplay.textContent = score;
 
-  if (diff === "easy") maxLives = 5;
-  else if (diff === "medium") maxLives = 3;
-  else maxLives = 2;
+  if (diff === "easy") {
+    maxLives = 5;
+    wordSpawnRate = 200;
+  } else if (diff === "medium") {
+    maxLives = 3;
+    wordSpawnRate = 160;
+  } else {
+    maxLives = 2;
+    wordSpawnRate = 120;
+  }
 
   lives = maxLives;
   renderLives();
 
   gamePaused = false;
   gameOver = false;
+  words = [];
+  wordSpawnTimer = 0;
 
   pauseOverlay.classList.remove("active");
   gameoverOverlay.classList.remove("active");
