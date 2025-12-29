@@ -227,6 +227,7 @@ function gameLoop() {
     }
 
     updateWords();
+    drawWords();
   }
   requestAnimationFrame(gameLoop);
 }
