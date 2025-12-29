@@ -29,6 +29,42 @@ let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
 
+/* SANOJEN LIIKKUMINEN  */
+class Word{
+  constructor(text, x, y, speed){
+    this.text = text;
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.fontSize = 24;
+    this.width = 100;
+  }
+
+  update() {
+    this.y +=this.speed;
+  }
+
+  draw(ctx) {
+    ctx.font = `bold ${this.fontSize}px Quicksand`;
+    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+    ctx.textAlign = "center";
+    ctx.fillText(this.text, this.x, this.y);
+  }
+
+  isOffScreen(canvasHeight) {
+    return this.y > canvasHeight;  
+  }
+
+  contains(x, y) {
+    return (
+      x > this.x - 60 &&
+      x < this.x + 60 &&
+      y > this.y - 25 &&
+      y < this.y + 15
+    );
+  }
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
