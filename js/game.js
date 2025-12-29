@@ -100,6 +100,12 @@ function updateWords() {
   }
 }
 
+function drawWords(){
+  for (let word of words) {
+    word.draw(ctx);
+  }
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
