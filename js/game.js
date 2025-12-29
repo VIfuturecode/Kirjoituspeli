@@ -219,6 +219,8 @@ inputText.addEventListener("keydown", e => {
 function gameLoop() {
   if (!gamePaused && !gameOver && !gameScene.classList.contains("hidden")) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    wordSpawnTimer++;
   }
   requestAnimationFrame(gameLoop);
 }
