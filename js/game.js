@@ -225,6 +225,8 @@ function gameLoop() {
       spawnWord();
       wordSpawnTimer = 0;
     }
+
+    updateWords();
   }
   requestAnimationFrame(gameLoop);
 }
