@@ -106,6 +106,19 @@ function drawWords(){
   }
 }
 
+function checkWord(typedWord) {
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].text === typedWord.toLowerCase().trim()) {
+      words.splice(i, 1);
+      score += selectedDifficulty === "easy" ? 10 : 
+               selectedDifficulty === "medium" ? 20 : 30;
+      scoreDisplay.textContent = score;
+      return true;
+    }
+  }
+  return false;
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
