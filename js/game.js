@@ -169,7 +169,7 @@ function startGame(diff) {
   gamePaused = false;
   gameOver = false;
   words = [];
-  wordSpawnTimer = 0;
+  wordSpawnTimer = wordSpawnRate - 20;
 
   pauseOverlay.classList.remove("active");
   gameoverOverlay.classList.remove("active");
