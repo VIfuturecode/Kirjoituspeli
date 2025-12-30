@@ -115,6 +115,7 @@ function showMenu() {
 }
 
 function showIntro() {
+  skipIntro = false;
   currentCharacterIndex = 0;
   menuScene.classList.add("hidden");
   introScene.classList.remove("hidden");
