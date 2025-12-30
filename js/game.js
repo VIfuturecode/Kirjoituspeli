@@ -74,9 +74,9 @@ function spawnWord() {
   if (randomWord && randomWord.trim() !== "") {
     const x = Math.random() * (canvas.width - 120) + 60;
     const y = -40;
-    const speed = selectedDifficulty === "easy" ? 1.2 : 
-                  selectedDifficulty === "medium" ? 2.0 : 
-                                                    3.0;
+    const speed = selectedDifficulty === "easy" ? 0.8 : 
+                  selectedDifficulty === "medium" ? 1.2 : 
+                                                    1.8;
     words.push(new Word(randomWord.toLowerCase(), x, y, speed));
   }
 }
@@ -160,7 +160,7 @@ function startGame(diff) {
     wordSpawnRate = 110;
   } else {
     maxLives = 2;
-    wordSpawnRate = 80;
+    wordSpawnRate = 100;
   }
 
   lives = maxLives;
