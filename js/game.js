@@ -28,6 +28,7 @@ let score = 0;
 let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
+let skipIntro = false;
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
