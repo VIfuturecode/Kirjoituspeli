@@ -52,12 +52,13 @@ function updateProgressDots() {
 }
 
 /* PUHE */
-function speak(text) {
+function speak(text, character) {
   if (isMuted || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = "fi-FI";
-  u.rate = 0.9;
+  u.pitch = character.pitch || 1.0; 
+  u.rate = character.rate || 0.9;
   window.speechSynthesis.speak(u);
 }
 
