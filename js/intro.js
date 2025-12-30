@@ -1,8 +1,8 @@
 /* HAHMOT  */
 const characters = [
-    { id: "wizard", name: "Velho Viisas", dialogue: "Tervetuloa seikkailuun!", avatar: "🧙", cssClass: "wizard" },
-    { id: "knight", name: "Ritari Rohkea", dialogue: "Maailma on vaarassa...", avatar: "⚔️", cssClass: "knight" },
-    { id: "sage", name: "Tietäjä", dialogue: "Valitse matkasi viisaasti.", avatar: "🔮", cssClass: "sage" }
+    { id: "wizard", name: "Velho Viisas", dialogue: "Tervetuloa seikkailuun!", avatar: "🧙", cssClass: "wizard", pitch: 0.7, rate: 0.85 },
+    { id: "knight", name: "Ritari Rohkea", dialogue: "Maailma on vaarassa...", avatar: "⚔️", cssClass: "knight", pitch: 1.3, rate: 0.95 },
+    { id: "sage", name: "Tietäjä", dialogue: "Valitse matkasi viisaasti.", avatar: "🔮", cssClass: "sage", pitch: 1.1, rate: 0.9}
   ];
   
   let currentCharacterIndex = 0;
