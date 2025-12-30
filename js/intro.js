@@ -141,4 +141,4 @@ replayBtn.onclick = showIntro;
 /* START */
 createSparkles();
 initProgressDots();
-showCharacter(0);
+showIntro();
