@@ -81,15 +81,19 @@ function typeWriter(text, el, cb) {
 
 /* INTRO HAHMO  */
 function showCharacter(i) {
+  if (skipIntro) return;
+
   const c = characters[i];
   characterAvatar.textContent = c.avatar;
   characterAvatar.className = "avatar " + c.cssClass;
   characterName.textContent = c.name;
 
-  setTimeout(() => speak(c.dialogue), 400);
+  setTimeout(() => speak(c.dialogue, c), 400); // Välitä hahmo speak() funktiolle
   setTimeout(() => {
     typeWriter(c.dialogue, dialogueText, () => {
       setTimeout(() => {
+        if (skipIntro) return;
+
         if (currentCharacterIndex < characters.length - 1) {
           currentCharacterIndex++;
           updateProgressDots();
