@@ -130,7 +130,12 @@ muteBtn.onclick = () => {
   isMuted = !isMuted;
   muteBtn.textContent = isMuted ? "Mykistetty" : "Ääni";
 };
-skipBtn.onclick = showMenu;
+skipBtn.onclick = () => {
+  skipIntro = true;
+  window.speechSynthesis.cancel();
+  showMenu();
+}
+
 replayBtn.onclick = showIntro;
 
 /* START */
