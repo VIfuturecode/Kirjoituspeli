@@ -90,11 +90,11 @@ function updateWords() {
     
     if (words[i].isOffScreen(canvas.height)) {
       words.splice(i, 1);
-      if (!gameOver) {
+      if (!gameOver && gamemode == "selviytymistila") {
         lives--;
         renderLives();
         
-        if (lives <= 0) {
+        if (lives <= 0 && gamemode == "selviytymistila") {
           gameOver = true;
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
@@ -152,6 +152,12 @@ function startGame(diff) {
   menuScene.classList.add("hidden");
   gameScene.classList.remove("hidden");
 
+  if(gamemode != "selviytymistila"){
+    livesDisplay.style.display = "none"
+  } else{
+    livesDisplay.style.display = "in-line"
+  }
+  
   score = 0;
   scoreDisplay.textContent = score;
 
@@ -204,11 +210,11 @@ inputText.addEventListener("keydown", e => {
     const typedWord = inputText.value.trim();
     if (typedWord !== "") {
       const wordFound = checkWord(typedWord);
-      if (!wordFound) {
+      if (!wordFound && gamemode == "selviytymistila") {
         lives--;
         renderLives();
 
-        if (lives <= 0) {
+        if (lives <= 0 && gamemode == "selviytymistila") {
           gameOver = true;
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
