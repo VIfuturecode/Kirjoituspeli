@@ -16,6 +16,7 @@ const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
 const gamemodecards = document.querySelectorAll(".gamemode-card")
 const muteBtnGame = document.getElementById("mute-btn-game");
+const aika = document.getElementById("timer")
 var vaikeatsanat = [];
 var helpotsanat = [];
 //sanatlistaan on funktio joka ottaa tekstitiedostoista sanat ja 
@@ -137,6 +138,7 @@ function renderLives() {
 
 /* ALOITA PELI  */
 function startGame(diff) {
+
   selectedDifficulty = diff;
   // piilotta intro-napit
   skipBtn.classList.add("hidden");
@@ -158,21 +160,26 @@ function startGame(diff) {
   } else{
     livesDisplay.style.display = "inline"
   }
-  
+
   score = 0;
   scoreDisplay.textContent = score;
 
-  if (diff === "easy") {
-    maxLives = 5;
-    wordSpawnRate = 150;
-  } else if (diff === "medium") {
-    maxLives = 3;
-    wordSpawnRate = 110;
-  } else {
-    maxLives = 2;
-    wordSpawnRate = 100;
-  }
-
+  if(gamemode == "zen"){
+    if (diff === "easy") {
+      maxLives = 5;
+      wordSpawnRate = 150;
+    } else if (diff === "medium") {
+      maxLives = 3;
+      wordSpawnRate = 110;
+    } else {
+      maxLives = 2;
+      wordSpawnRate = 100;
+    };
+  } else if(gamemode == "aikahaaste"){
+    ajastin();
+    wordSpawnRate = 70;
+  };
+  
   lives = maxLives;
   renderLives();
 
@@ -249,7 +256,7 @@ muteBtnGame.onclick = () => {
   muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
 };
 
-menuBtn.onclick = showMenu;
+menuBtn.onclick = () => clearing();
 restartBtn.onclick = () => startGame(selectedDifficulty);
 difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
 gamemodecards.forEach(c => c.onclick = () => cardclicked(c.dataset.mode));
@@ -299,4 +306,22 @@ function cardclicked(m){
   gamemode = m;
   menuScene.classList.remove("hidden");
   gamemodescene.classList.add("hidden");
+}
+
+function ajastin(){
+  var timer = 60
+  currenttime = setInterval(function () {timer = timer -1, aika.innerHTML = timer}, 1000);
+  peliajastin = setTimeout(function(){ 
+      clearInterval(currenttime)
+      gameOver = true;
+      gameoverOverlay.classList.add("active");
+      finalScoreDisplay.textContent = score;
+  }, 60000);
+  
+}
+
+function clearing(){
+  clearInterval(currenttime);
+  clearTimeout(peliajastin);
+  showMenu();
 }
