@@ -152,10 +152,11 @@ function startGame(diff) {
   menuScene.classList.add("hidden");
   gameScene.classList.remove("hidden");
 
+  console.log("pelinaloitus")
   if(gamemode != "selviytymistila"){
     livesDisplay.style.display = "none"
   } else{
-    livesDisplay.style.display = "in-line"
+    livesDisplay.style.display = "inline"
   }
   
   score = 0;
