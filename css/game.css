@@ -325,4 +325,61 @@ body.hard-bg {
   transform: scale(1.05);
 }
 
+/* pelimuoto scene */
+
+#gamemode-scene{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.gamemode-cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 850px;
+  width: 100%;
+}
+.gamemode-card {
+  padding: 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 1rem;
+  border: 2px solid rgba(255,255,255,0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease-out backwards;
+}
+
+.gamemode-card:nth-child(1) { animation-delay: 0s; }
+.gamemode-card:nth-child(2) { animation-delay: 0.15s; }
+.gamemode-card:nth-child(3) { animation-delay: 0.3s; }
+  
+.gamemode-card:hover {
+  transform: scale(1.05);
+  border-color: rgba(99,102,241,0.5);
+  box-shadow: 0 0 30px rgba(99,102,241,0.3);
+}
+  
+.gamemode-card[data-difficulty="easy"]:hover {
+  border-color: rgba(16,185,129,0.7);
+  box-shadow: 0 0 30px rgba(16,185,129,0.4);
+}
+  
+.gamemode-card[data-difficulty="medium"]:hover {
+  border-color: rgba(245,158,11,0.7);
+  box-shadow: 0 0 30px rgba(245,158,11,0.4);
+}
+  
+.gamemode-card[data-difficulty="hard"]:hover {
+  border-color: rgba(239,68,68,0.7);
+  box-shadow: 0 0 30px rgba(239,68,68,0.4);
+}
+
+.easy-icon { background: rgba(16,185,129,0.2); }
+.medium-icon { background: rgba(245,158,11,0.2); }
+.hard-icon { background: rgba(239,68,68,0.2); }
   

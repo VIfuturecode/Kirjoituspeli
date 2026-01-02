@@ -14,6 +14,7 @@ const finalScoreDisplay = document.getElementById("final-score");
 const livesDisplay = document.getElementById("lives");
 const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
+const gamemodecards = document.querySelectorAll(".gamemode-card")
 const muteBtnGame = document.getElementById("mute-btn-game");
 var vaikeatsanat = [];
 var helpotsanat = [];
@@ -22,6 +23,7 @@ var helpotsanat = [];
 sanatlistaan();
 
 /* PELIN TILA  */
+let gamemode = "zen";
 let gamePaused = false;
 let gameOver = false;
 let score = 0;
@@ -243,6 +245,7 @@ muteBtnGame.onclick = () => {
 menuBtn.onclick = showMenu;
 restartBtn.onclick = () => startGame(selectedDifficulty);
 difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
+gamemodecards.forEach(c => c.onclick = () => cardclicked(c.dataset.mode));
 
 document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "p") {
@@ -283,4 +286,10 @@ function sana(){
   } else {
     return vaikeatsanat[Math.floor(Math.random() * vaikeatsanat.length)]
   }
+}
+
+function cardclicked(m){
+  gamemode = m;
+  menuScene.classList.remove("hidden");
+  gamemodescene.classList.add("hidden");
 }

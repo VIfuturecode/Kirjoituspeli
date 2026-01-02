@@ -10,6 +10,7 @@ const characters = [
 
 /* DOM */
 const introScene = document.getElementById("intro-scene");
+const gamemodescene = document.getElementById("gamemode-scene")
 const menuScene = document.getElementById("menu-scene");
 const characterAvatar = document.getElementById("character-avatar");
 const characterName = document.getElementById("character-name");
@@ -109,7 +110,7 @@ function showCharacter(i) {
 /* SCENET */
 function showMenu() {
   introScene.classList.add("hidden");
-  menuScene.classList.remove("hidden");
+  gamemodescene.classList.remove("hidden");
   skipBtn.classList.add("hidden");
   document.body.className = "intro-bg";
 }
