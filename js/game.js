@@ -143,6 +143,7 @@ function startGame(diff) {
   // piilotta intro-napit
   skipBtn.classList.add("hidden");
   muteBtn.classList.add("hidden");
+  aika.style.display = "none";
   document.body.className = diff + "-bg";
 
   difficultyBadge.className = diff;
@@ -176,6 +177,7 @@ function startGame(diff) {
       wordSpawnRate = 100;
     };
   } else if(gamemode == "aikahaaste"){
+    aika.style.display = "inline"; 
     ajastin();
     wordSpawnRate = 70;
   };
@@ -281,7 +283,7 @@ function sanatlistaan(){
     .then(text => {
       const lines = text.split(/\r?\n/)
       for(var i = 0; i < lines.length; i++){
-        helpotsanat.push(lines[i])
+        helpotsanat.push(lines[i]);
       }
     })
   fetch("vaikeat.txt")
@@ -289,7 +291,7 @@ function sanatlistaan(){
     .then(text => {
       const lines = text.split(/\r?\n/)
       for(var i = 0; i < lines.length; i++){
-        vaikeatsanat.push(lines[i])
+        vaikeatsanat.push(lines[i]);
       } 
     })
 }
@@ -298,7 +300,7 @@ function sana(){
   if(selectedDifficulty == "easy" || selectedDifficulty == "medium"){
     return helpotsanat[Math.floor(Math.random() * helpotsanat.length)];
   } else {
-    return vaikeatsanat[Math.floor(Math.random() * vaikeatsanat.length)]
+    return vaikeatsanat[Math.floor(Math.random() * vaikeatsanat.length)];
   }
 }
 
@@ -312,7 +314,7 @@ function ajastin(){
   var timer = 60
   currenttime = setInterval(function () {timer = timer -1, aika.innerHTML = timer}, 1000);
   peliajastin = setTimeout(function(){ 
-      clearInterval(currenttime)
+      clearInterval(currenttime);
       gameOver = true;
       gameoverOverlay.classList.add("active");
       finalScoreDisplay.textContent = score;
@@ -324,6 +326,6 @@ function clearing(){
   if(gamemode == "aikahaaste"){
     clearInterval(currenttime);
     clearTimeout(peliajastin);
-  }
+  };
   showMenu();
 }
