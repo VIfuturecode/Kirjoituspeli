@@ -321,7 +321,9 @@ function ajastin(){
 }
 
 function clearing(){
-  clearInterval(currenttime);
-  clearTimeout(peliajastin);
+  if(gamemode == "aikahaaste"){
+    clearInterval(currenttime);
+    clearTimeout(peliajastin);
+  }
   showMenu();
 }

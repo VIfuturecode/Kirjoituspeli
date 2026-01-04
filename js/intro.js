@@ -19,6 +19,7 @@ const progressDots = document.getElementById("progress-dots");
 const skipBtn = document.getElementById("skip-btn");
 const muteBtn = document.getElementById("mute-btn");
 const replayBtn = document.getElementById("replay-btn");
+const replayBtn2 = document.getElementById("replay-btn2");
 
 /* KIMALLUS */
 function createSparkles() {
@@ -138,6 +139,7 @@ skipBtn.onclick = () => {
 }
 
 replayBtn.onclick = showIntro;
+replayBtn2.onclick = showIntro;
 
 /* START */
 createSparkles();
