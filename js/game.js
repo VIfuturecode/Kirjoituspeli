@@ -167,20 +167,29 @@ function startGame(diff) {
 
   if(gamemode == "zen"){
     if (diff === "easy") {
-      maxLives = 5;
       wordSpawnRate = 150;
     } else if (diff === "medium") {
-      maxLives = 3;
       wordSpawnRate = 110;
     } else {
-      maxLives = 2;
       wordSpawnRate = 100;
     };
   } else if(gamemode == "aikahaaste"){
     aika.style.display = "inline"; 
     ajastin();
-    wordSpawnRate = 70;
-  };
+  }else{
+    wordSpawnRate = 500;
+    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate)}, 3000);
+    if(wordSpawnRate == 10){
+      clearInterval(nopeutus);
+    }
+    if (diff === "easy") {
+      maxLives = 5;
+    } else if (diff === "medium") {
+      maxLives = 3;
+    } else {
+      maxLives = 2;
+    };
+  }
   
   lives = maxLives;
   renderLives();
@@ -326,6 +335,8 @@ function clearing(){
   if(gamemode == "aikahaaste"){
     clearInterval(currenttime);
     clearTimeout(peliajastin);
-  };
+  }else if(gamemode == "selviytymistila"){
+    clearInterval(nopeutus);
+  }
   showMenu();
 }
