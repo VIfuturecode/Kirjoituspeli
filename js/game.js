@@ -11,12 +11,14 @@ const pauseOverlay = document.getElementById("pause-overlay");
 const gameoverOverlay = document.getElementById("gameover-overlay");
 const scoreDisplay = document.getElementById("score");
 const finalScoreDisplay = document.getElementById("final-score");
+const finalkomboDisplay = document.getElementById("final-kombo");
 const livesDisplay = document.getElementById("lives");
 const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
 const gamemodecards = document.querySelectorAll(".gamemode-card")
 const muteBtnGame = document.getElementById("mute-btn-game");
 const aika = document.getElementById("timer")
+const kombo = document.getElementById("kombo")
 var vaikeatsanat = [];
 var helpotsanat = [];
 //sanatlistaan on funktio joka ottaa tekstitiedostoista sanat ja 
@@ -27,6 +29,8 @@ sanatlistaan();
 let gamemode = "zen";
 let gamePaused = false;
 let gameOver = false;
+let kombonyt = 0
+let isoinkombo = 0
 let score = 0;
 let lives = 3;
 let maxLives = 3;
@@ -91,14 +95,20 @@ function updateWords() {
     
     if (words[i].isOffScreen(canvas.height)) {
       words.splice(i, 1);
+      if(kombonyt > isoinkombo){
+        isoinkombo = kombonyt
+      }
+      kombonyt = 0;
+      kombo.innerHTML = "kombo" + " " + kombonyt;
       if (!gameOver && gamemode == "selviytymistila") {
         lives--;
         renderLives();
-        
         if (lives <= 0 && gamemode == "selviytymistila") {
           gameOver = true;
           gameoverOverlay.classList.add("active");
+          clearInterval(nopeutus);
           finalScoreDisplay.textContent = score;
+          finalkomboDisplay.innerHTML = isoinkombo;
         }
       }
     }
@@ -116,8 +126,10 @@ function checkWord(typedWord) {
     if (words[i].text === typedWord.toLowerCase().trim()) {
       words.splice(i, 1);
       score += selectedDifficulty === "easy" ? 10 : 
-               selectedDifficulty === "medium" ? 20 : 30;
+               selectedDifficulty === "medium" ? 20 : 30;         
       scoreDisplay.textContent = score;
+      kombonyt += 1;
+      kombo.innerHTML = "kombo" + " " + kombonyt;
       return true;
     }
   }
@@ -162,6 +174,8 @@ function startGame(diff) {
     livesDisplay.style.display = "inline"
   }
 
+  kombonyt = 0;
+  isoinkombo = 0;
   score = 0;
   scoreDisplay.textContent = score;
 
@@ -229,14 +243,24 @@ inputText.addEventListener("keydown", e => {
     const typedWord = inputText.value.trim();
     if (typedWord !== "") {
       const wordFound = checkWord(typedWord);
+      if(!wordFound){
+        if(kombonyt >= isoinkombo){
+          isoinkombo = kombonyt
+        }
+        kombonyt = 0
+        kombo.innerHTML = "kombo" + " " + kombonyt;  
       if (!wordFound && gamemode == "selviytymistila") {
         lives--;
         renderLives();
+      
+      }
 
         if (lives <= 0 && gamemode == "selviytymistila") {
           gameOver = true;
+          clearInterval(nopeutus);
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
+          finalkomboDisplay.innerHTML = isoinkombo;
         }
       }
       inputText.value = "";
@@ -248,13 +272,11 @@ inputText.addEventListener("keydown", e => {
 function gameLoop() {
   if (!gamePaused && !gameOver && !gameScene.classList.contains("hidden")) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     wordSpawnTimer++;
     if (wordSpawnTimer >= wordSpawnRate) {
       spawnWord();
       wordSpawnTimer = 0;
     }
-
     updateWords();
     drawWords();
   }
@@ -327,6 +349,7 @@ function ajastin(){
       gameOver = true;
       gameoverOverlay.classList.add("active");
       finalScoreDisplay.textContent = score;
+      finalkomboDisplay.innerHTML = isoinkombo;
   }, 60000);
   
 }

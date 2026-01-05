@@ -389,3 +389,10 @@ body.hard-bg {
   font-size:2em;
   flex-wrap: wrap;
 }
+
+#kombo {
+  display: flex;
+  align-items: center;
+  font-size:1.8em;
+  flex-wrap: wrap;
+}
