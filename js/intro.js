@@ -114,6 +114,7 @@ function showMenu() {
   gamemodescene.classList.remove("hidden");
   skipBtn.classList.add("hidden");
   document.body.className = "intro-bg";
+  gameScene.classList.add("hidden");
 }
 
 function showIntro() {
