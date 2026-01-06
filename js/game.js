@@ -36,6 +36,7 @@ let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
 let skipIntro = false;
+let closestword = ""
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
@@ -46,17 +47,24 @@ class Word{
     this.speed = speed;
     this.fontSize = 24;
     this.width = 100;
+    this.highlight = false
   }
 
   update() {
     this.y +=this.speed;
   }
 
-  draw(ctx) {
-    ctx.font = `bold ${this.fontSize}px Quicksand`;
+  draw(ctx, highlight) {
+    if(highlight == true){
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(180, 180, 180, 1)";
+      ctx.fillRect(this.x - 25, this.y + 6, 50, 5);
+    }
     ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
     ctx.textAlign = "center";
+    ctx.font = `bold ${this.fontSize}px Quicksand`;
     ctx.fillText(this.text, this.x, this.y);
+    
   }
 
   isOffScreen(canvasHeight) {
@@ -90,9 +98,19 @@ function spawnWord() {
 }
 
 function updateWords() {
+  if(words.includes(closestword) != true){
+      closestword.y = 0
+  }
   for (let i = words.length - 1; i >= 0; i--) {
     words[i].update();
+    if(closestword == ""){
+      closestword = words[i]
+    }else{
+      if(words[i].y > closestword.y)
+        closestword = words[i]
+    }
     
+
     if (words[i].isOffScreen(canvas.height)) {
       words.splice(i, 1);
       if(kombonyt > isoinkombo){
@@ -113,11 +131,14 @@ function updateWords() {
       }
     }
   }
+  if(closestword != ""){
+      closestword.highlight = true;
+    }
 }
 
 function drawWords(){
   for (let word of words) {
-    word.draw(ctx);
+    word.draw(ctx, word.highlight);
   }
 }
 
@@ -168,7 +189,7 @@ function startGame(diff) {
   gameScene.classList.remove("hidden");
 
   console.log("pelinaloitus")
-
+  closestword = ""
   kombonyt = 0;
   isoinkombo = 0;
   score = 0;
