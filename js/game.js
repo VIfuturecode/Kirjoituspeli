@@ -125,26 +125,18 @@ function updateWords() {
     }
 
     if (words[i].isOffScreen(canvas.height)) {
-      if(kombonyt > isoinkombo){
-        isoinkombo = kombonyt
-      }
-      kombonyt = 0;
-      kombo.innerHTML = "kombo" + " " + kombonyt;
       //is red tutkii onko sanalle annettu red true vai false. Jos sana on punainen aiheutuu heti game over
+      komboresetointi();
       if(words[i].red == true){
+        gameoverscreen();
         clearing();
-        gameoverOverlay.classList.add("active");
-        finalScoreDisplay.textContent = score;
-        finalkomboDisplay.innerHTML = isoinkombo;
       }
       words.splice(i, 1);
       if (!gameOver && gamemode == "selviytymistila") {
         lives--;
         renderLives();
         if (lives <= 0 && gamemode == "selviytymistila") {
-          gameoverOverlay.classList.add("active");
-          finalScoreDisplay.textContent = score;
-          finalkomboDisplay.innerHTML = isoinkombo;
+          gameoverscreen();
           clearing();
         }
       }
@@ -255,21 +247,13 @@ inputText.addEventListener("keydown", e => {
     if (typedWord !== "") {
       const wordFound = checkWord(typedWord);
       if(!wordFound){
-        if(kombonyt >= isoinkombo){
-          isoinkombo = kombonyt
-        }
-        kombonyt = 0
-        kombo.innerHTML = "kombo" + " " + kombonyt;  
+        komboresetointi();
       if (!wordFound && gamemode == "selviytymistila") {
         lives--;
         renderLives();
-      
       }
         if (lives <= 0 && gamemode == "selviytymistila") {
-          clearing();
-          gameoverOverlay.classList.add("active");
-          finalScoreDisplay.textContent = score;
-          finalkomboDisplay.innerHTML = isoinkombo;
+          gameoverscreen();
         }
       }
       inputText.value = "";
@@ -426,5 +410,21 @@ function setdifficulty(diff){
     aika.style.display = "inline"; 
     ajastin();
   }
-    
+
+}
+//komboresetointi tekee kombon resetoinnin sekä näyttämisen ja isoimman kombon tallentamisen 
+function komboresetointi(){
+  if(kombonyt > isoinkombo){
+    isoinkombo = kombonyt
+  }
+  kombonyt = 0;
+  kombo.innerHTML = "kombo" + " " + kombonyt;  
+}
+
+//gameoverscreen funktio lopetaa pelin ja näyttää gameover näytön
+function gameoverscreen(){
+  gameoverOverlay.classList.add("active");
+  finalScoreDisplay.textContent = score;
+  finalkomboDisplay.innerHTML = isoinkombo;
+  clearing();
 }
