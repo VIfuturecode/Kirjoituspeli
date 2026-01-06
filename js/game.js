@@ -50,7 +50,7 @@ class Word{
     this.highlight = false
     if(gamemode == "selviytymistila" || gamemode == "aikahaaste"){
       if(Math.random() < 0.05){
-        console.log("skog")
+        console.log("red")
         this.red = true;
       }else{
         this.red = false
