@@ -48,19 +48,32 @@ class Word{
     this.fontSize = 24;
     this.width = 100;
     this.highlight = false
+    if(gamemode == "selviytymistila" || gamemode == "aikahaaste"){
+      if(Math.random() < 0.05){
+        console.log("skog")
+        this.red = true;
+      }else{
+        this.red = false
+      }
+    }
+
   }
 
   update() {
     this.y +=this.speed;
   }
 
-  draw(ctx, highlight) {
+  draw(ctx, highlight, red) {
     if(highlight == true){
       ctx.textAlign = "center";
       ctx.fillStyle = "rgba(180, 180, 180, 1)";
       ctx.fillRect(this.x - 25, this.y + 6, 50, 5);
     }
-    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+    if(red == true){
+      ctx.fillStyle = "rgba(255, 0, 0, 0.9)";
+    }else{
+      ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+    }
     ctx.textAlign = "center";
     ctx.font = `bold ${this.fontSize}px Quicksand`;
     ctx.fillText(this.text, this.x, this.y);
@@ -109,22 +122,26 @@ function updateWords() {
       if(words[i].y > closestword.y)
         closestword = words[i]
     }
-    
 
     if (words[i].isOffScreen(canvas.height)) {
-      words.splice(i, 1);
       if(kombonyt > isoinkombo){
         isoinkombo = kombonyt
       }
       kombonyt = 0;
       kombo.innerHTML = "kombo" + " " + kombonyt;
+      if(words[i].red == true){
+        clearing();
+        gameoverOverlay.classList.add("active");
+        finalScoreDisplay.textContent = score;
+        finalkomboDisplay.innerHTML = isoinkombo;
+      }
+      words.splice(i, 1);
       if (!gameOver && gamemode == "selviytymistila") {
         lives--;
         renderLives();
         if (lives <= 0 && gamemode == "selviytymistila") {
-          gameOver = true;
+          clearing();
           gameoverOverlay.classList.add("active");
-          clearInterval(nopeutus);
           finalScoreDisplay.textContent = score;
           finalkomboDisplay.innerHTML = isoinkombo;
         }
@@ -138,7 +155,7 @@ function updateWords() {
 
 function drawWords(){
   for (let word of words) {
-    word.draw(ctx, word.highlight);
+    word.draw(ctx, word.highlight, word.red);
   }
 }
 
@@ -246,9 +263,8 @@ inputText.addEventListener("keydown", e => {
         renderLives();
       
       }
-
         if (lives <= 0 && gamemode == "selviytymistila") {
-          gameOver = true;
+          clearing();
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
           finalkomboDisplay.innerHTML = isoinkombo;
@@ -367,7 +383,7 @@ function clearing(){
   kombonyt = 0
   isoinkombo = 0
   kombo.innerHTML = "kombo" + " " + kombonyt;
-  gameOver = false
+  gameOver = true
 }
 
 function setdifficulty(diff){
