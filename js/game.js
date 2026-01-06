@@ -111,6 +111,7 @@ function spawnWord() {
 }
 
 function updateWords() {
+  // closestword tutkii mikä sana on lähimpänä pohjaa ja jos sitä ei ole asetettu, sana valitaan listasta.
   if(words.includes(closestword) != true){
       closestword.y = 0
   }
@@ -129,6 +130,7 @@ function updateWords() {
       }
       kombonyt = 0;
       kombo.innerHTML = "kombo" + " " + kombonyt;
+      //is red tutkii onko sanalle annettu red true vai false. Jos sana on punainen aiheutuu heti game over
       if(words[i].red == true){
         clearing();
         gameoverOverlay.classList.add("active");
@@ -347,7 +349,7 @@ function cardclicked(m){
   menuScene.classList.remove("hidden");
   gamemodescene.classList.add("hidden");
 }
-
+//ajastin luo aikahaasteeseen 60 sekunnin ajastimen yläpuolelle näyttöä sekä laskee itsestään 60 sekunttia kunnes aiheuttaa game over näytön
 function ajastin(){
   var timer = 60
   currenttime = setInterval(function () {timer = timer -1, aika.innerHTML = timer}, 1000);
@@ -361,6 +363,9 @@ function ajastin(){
   
 }
 
+//clearing clearaa nyt kaikki intervallit ja timeoutit, sekä asettaa muutaman asian takaisin missä se alunperin oli
+//try kohdassa koodi tarkistaa onko currentime, peliajastin ja nopeutusta olemassa
+//jos niitä ei ole olemassa, niin kirjoittaa consoleen errorin mutta peli jatkuu
 function clearing(){
   if(gamemode == "aikahaaste"){
     try{
@@ -386,14 +391,12 @@ function clearing(){
   gameOver = true
 }
 
+//set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
 function setdifficulty(diff){
   if(gamemode == "selviytymistila"){
     livesDisplay.style.display = "inline"
     wordSpawnRate = 300;
-    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate)}, 10000);
-    if(wordSpawnRate == 10){
-      clearInterval(nopeutus);
-    }
+    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate); if(wordSpawnRate == 40){clearInterval(nopeutus)}}, 10000);
     if (diff === "easy") {
       maxLives = 5;
     } else if (diff === "medium") {
