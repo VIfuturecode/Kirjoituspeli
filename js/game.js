@@ -142,10 +142,10 @@ function updateWords() {
         lives--;
         renderLives();
         if (lives <= 0 && gamemode == "selviytymistila") {
-          clearing();
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
           finalkomboDisplay.innerHTML = isoinkombo;
+          clearing();
         }
       }
     }
