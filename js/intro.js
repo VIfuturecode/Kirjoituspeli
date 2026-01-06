@@ -110,11 +110,13 @@ function showCharacter(i) {
 
 /* SCENET */
 function showMenu() {
+  console.log("menu")
   introScene.classList.add("hidden");
   gamemodescene.classList.remove("hidden");
   skipBtn.classList.add("hidden");
   document.body.className = "intro-bg";
   gameScene.classList.add("hidden");
+  clearing();
 }
 
 function showIntro() {

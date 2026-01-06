@@ -150,7 +150,6 @@ function renderLives() {
 
 /* ALOITA PELI  */
 function startGame(diff) {
-
   selectedDifficulty = diff;
   // piilotta intro-napit
   skipBtn.classList.add("hidden");
@@ -168,43 +167,14 @@ function startGame(diff) {
   gameScene.classList.remove("hidden");
 
   console.log("pelinaloitus")
-  if(gamemode != "selviytymistila"){
-    livesDisplay.style.display = "none"
-  } else{
-    livesDisplay.style.display = "inline"
-  }
 
   kombonyt = 0;
   isoinkombo = 0;
   score = 0;
   scoreDisplay.textContent = score;
 
-  if(gamemode == "zen"){
-    if (diff === "easy") {
-      wordSpawnRate = 150;
-    } else if (diff === "medium") {
-      wordSpawnRate = 110;
-    } else {
-      wordSpawnRate = 100;
-    };
-  } else if(gamemode == "aikahaaste"){
-    aika.style.display = "inline"; 
-    ajastin();
-  }else{
-    wordSpawnRate = 500;
-    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate)}, 3000);
-    if(wordSpawnRate == 10){
-      clearInterval(nopeutus);
-    }
-    if (diff === "easy") {
-      maxLives = 5;
-    } else if (diff === "medium") {
-      maxLives = 3;
-    } else {
-      maxLives = 2;
-    };
-  }
-  
+  setdifficulty(selectedDifficulty);
+
   lives = maxLives;
   renderLives();
 
@@ -257,7 +227,6 @@ inputText.addEventListener("keydown", e => {
 
         if (lives <= 0 && gamemode == "selviytymistila") {
           gameOver = true;
-          clearInterval(nopeutus);
           gameoverOverlay.classList.add("active");
           finalScoreDisplay.textContent = score;
           finalkomboDisplay.innerHTML = isoinkombo;
@@ -289,7 +258,7 @@ muteBtnGame.onclick = () => {
   muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
 };
 
-menuBtn.onclick = () => clearing();
+menuBtn.onclick = () => showMenu();
 restartBtn.onclick = () => startGame(selectedDifficulty);
 difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
 gamemodecards.forEach(c => c.onclick = () => cardclicked(c.dataset.mode));
@@ -355,11 +324,58 @@ function ajastin(){
 }
 
 function clearing(){
+  console.log("restart")
   if(gamemode == "aikahaaste"){
     clearInterval(currenttime);
     clearTimeout(peliajastin);
   }else if(gamemode == "selviytymistila"){
     clearInterval(nopeutus);
   }
-  showMenu();
+  words = []
+  wordSpawnRate = 180
+  wordSpawnTimer = wordSpawnRate - 20;
+  kombonyt = 0
+  isoinkombo = 0
+  kombo.innerHTML = "kombo" + " " + kombonyt;
+  gameOver = false
+}
+
+function setdifficulty(diff){
+  if(gamemode == "selviytymistila"){
+    livesDisplay.style.display = "inline"
+    wordSpawnRate = 300;
+    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate)}, 10000);
+    if(wordSpawnRate == 10){
+      clearInterval(nopeutus);
+    }
+    if (diff === "easy") {
+      maxLives = 5;
+    } else if (diff === "medium") {
+      maxLives = 3;
+    } else {
+      maxLives = 2;
+    };
+  } 
+  else if(gamemode == "zen"){
+    livesDisplay.style.display = "none"
+    if (diff === "easy") {
+      wordSpawnRate = 150;
+    } else if (diff === "medium") {
+      wordSpawnRate = 110;
+    } else {
+      wordSpawnRate = 100;
+    };
+  } else if(gamemode == "aikahaaste"){
+    if (diff === "easy") {
+      wordSpawnRate = 150;
+    } else if (diff === "medium") {
+      wordSpawnRate = 110;
+    } else {
+      wordSpawnRate = 100;
+    };
+    livesDisplay.style.display = "none"
+    aika.style.display = "inline"; 
+    ajastin();
+  }
+    
 }
