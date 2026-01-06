@@ -150,6 +150,7 @@ function renderLives() {
 
 /* ALOITA PELI  */
 function startGame(diff) {
+  clearing();
   selectedDifficulty = diff;
   // piilotta intro-napit
   skipBtn.classList.add("hidden");
@@ -324,13 +325,21 @@ function ajastin(){
 }
 
 function clearing(){
-  console.log("restart")
   if(gamemode == "aikahaaste"){
-    clearInterval(currenttime);
-    clearTimeout(peliajastin);
+    try{
+      clearInterval(currenttime);
+      clearTimeout(peliajastin);
+    } catch(error) {
+      console.log(error)
+    }
   }else if(gamemode == "selviytymistila"){
-    clearInterval(nopeutus);
+    try{
+      clearInterval(nopeutus);
+    } catch(error) {
+      console.log(error)
+    }
   }
+  console.log("restart")
   words = []
   wordSpawnRate = 180
   wordSpawnTimer = wordSpawnRate - 20;
