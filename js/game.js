@@ -187,23 +187,12 @@ function startGame(diff) {
   // piilotta intro-napit
   skipBtn.classList.add("hidden");
   muteBtn.classList.add("hidden");
-  aika.style.display = "none";
-  document.body.className = diff + "-bg";
-
-  difficultyBadge.className = diff;
-  difficultyBadge.textContent =
-    diff === "easy" ? "HELPPO" :
-    diff === "medium" ? "KESKITASO" : "VAIKEA";
 
   introScene.classList.add("hidden");
   menuScene.classList.add("hidden");
   gameScene.classList.remove("hidden");
 
   console.log("pelinaloitus")
-  closestword = ""
-  kombonyt = 0;
-  isoinkombo = 0;
-  score = 0;
   scoreDisplay.textContent = score;
 
   setdifficulty(selectedDifficulty);
@@ -213,7 +202,6 @@ function startGame(diff) {
 
   gamePaused = false;
   gameOver = false;
-  words = [];
   wordSpawnTimer = wordSpawnRate - 20;
 
   pauseOverlay.classList.remove("active");
@@ -365,6 +353,7 @@ function clearing(){
       console.log(error)
     }
   }
+  aika.style.display = "none";
   console.log("restart")
   words = []
   wordSpawnRate = 180
@@ -373,10 +362,19 @@ function clearing(){
   isoinkombo = 0
   kombo.innerHTML = "kombo" + " " + kombonyt;
   gameOver = true
+  closestword = ""
+  score = 0;
 }
 
 //set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
 function setdifficulty(diff){
+  document.body.className = diff + "-bg";
+
+  difficultyBadge.className = diff;
+  difficultyBadge.textContent =
+    diff === "easy" ? "HELPPO" :
+    diff === "medium" ? "KESKITASO" : "VAIKEA";
+
   if(gamemode == "selviytymistila"){
     livesDisplay.style.display = "inline"
     wordSpawnRate = 300;
