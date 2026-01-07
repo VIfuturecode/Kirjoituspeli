@@ -29,22 +29,29 @@ sanatlistaan();
 let gamemode = "zen";
 let gamePaused = false;
 let gameOver = false;
-let kombonyt = 0
-let isoinkombo = 0
+let kombonyt = 0;
+let isoinkombo = 0;
 let score = 0;
 let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
 let skipIntro = false;
-let closestword = ""
+let closestword = "";
+let currentlyfreezed = false
+let slowspawnrate = 5000
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
   constructor(text, x, y, speed){
+    this.originalspeed = speed
     this.text = text;
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    if(currentlyfreezed == true){
+      this.speed = 0.2
+    }else{
+      this.speed = speed;
+    }
     this.fontSize = 24;
     this.width = 100;
     this.highlight = false
@@ -53,10 +60,10 @@ class Word{
         console.log("red")
         this.red = true;
       }else{
-        this.red = false
+        this.red = false;
       }
     }
-
+    
   }
 
   update() {
@@ -71,7 +78,10 @@ class Word{
     }
     if(red == true){
       ctx.fillStyle = "rgba(255, 0, 0, 0.9)";
-    }else{
+    }else if(currentlyfreezed == true){
+      ctx.fillStyle = "rgba(171, 242, 255, 0.9)";
+    }
+    else{
       ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
     }
     ctx.textAlign = "center";
@@ -95,8 +105,7 @@ class Word{
 }
 
 let words = [];
-let wordSpawnTimer = 0;
-let wordSpawnRate = 180;
+let wordSpawnRate = 0;
 
 function spawnWord() {
   const randomWord = sana();
@@ -202,7 +211,7 @@ function startGame(diff) {
 
   gamePaused = false;
   gameOver = false;
-  wordSpawnTimer = wordSpawnRate - 20;
+  wordtimer(wordSpawnRate);
 
   pauseOverlay.classList.remove("active");
   gameoverOverlay.classList.remove("active");
@@ -253,15 +262,14 @@ inputText.addEventListener("keydown", e => {
 function gameLoop() {
   if (!gamePaused && !gameOver && !gameScene.classList.contains("hidden")) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    wordSpawnTimer++;
-    if (wordSpawnTimer >= wordSpawnRate) {
-      spawnWord();
-      wordSpawnTimer = 0;
-    }
     updateWords();
     drawWords();
   }
   requestAnimationFrame(gameLoop);
+}
+
+function wordtimer(sp){
+  wordspawntimer = setInterval(function () {spawnWord();}, sp);
 }
 
 /* EVENTIT */
@@ -281,6 +289,24 @@ document.addEventListener("keydown", (e) => {
     if (active !== inputText && !gameScene.classList.contains("hidden")) {
       e.preventDefault();
       togglePause();
+    }
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "b") {
+    const active = document.activeElement;
+    if (active !== inputText && !gameScene.classList.contains("hidden")) {
+      bomb();
+    }
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "f") {
+    const active = document.activeElement;
+    if (active !== inputText && !gameScene.classList.contains("hidden")) {
+      freeze();
     }
   }
 });
@@ -353,11 +379,15 @@ function clearing(){
       console.log(error)
     }
   }
+  try{
+    clearInterval(wordspawntimer);
+    } catch(error) {
+      console.log(error)
+    }
   aika.style.display = "none";
   console.log("restart")
   words = []
-  wordSpawnRate = 180
-  wordSpawnTimer = wordSpawnRate - 20;
+  wordSpawnRate = 0
   kombonyt = 0
   isoinkombo = 0
   kombo.innerHTML = "kombo" + " " + kombonyt;
@@ -377,8 +407,8 @@ function setdifficulty(diff){
 
   if(gamemode == "selviytymistila"){
     livesDisplay.style.display = "inline"
-    wordSpawnRate = 300;
-    nopeutus = setInterval(function () {wordSpawnRate -= 10; console.log(wordSpawnRate); if(wordSpawnRate == 40){clearInterval(nopeutus)}}, 10000);
+    wordSpawnRate = 2000;
+    nopeutus = setInterval(function () {wordSpawnRate -= 100; console.log(wordSpawnRate); if(wordSpawnRate == 500){clearInterval(nopeutus)}}, 10000);
     if (diff === "easy") {
       maxLives = 5;
     } else if (diff === "medium") {
@@ -390,19 +420,19 @@ function setdifficulty(diff){
   else if(gamemode == "zen"){
     livesDisplay.style.display = "none"
     if (diff === "easy") {
-      wordSpawnRate = 150;
+      wordSpawnRate = 1500;
     } else if (diff === "medium") {
-      wordSpawnRate = 110;
+      wordSpawnRate = 1100;
     } else {
-      wordSpawnRate = 100;
+      wordSpawnRate = 1000;
     };
   } else if(gamemode == "aikahaaste"){
     if (diff === "easy") {
-      wordSpawnRate = 150;
+      wordSpawnRate = 1000;
     } else if (diff === "medium") {
-      wordSpawnRate = 110;
+      wordSpawnRate = 1000;
     } else {
-      wordSpawnRate = 100;
+      wordSpawnRate = 1000;
     };
     livesDisplay.style.display = "none"
     aika.style.display = "inline"; 
@@ -425,4 +455,28 @@ function gameoverscreen(){
   finalScoreDisplay.textContent = score;
   finalkomboDisplay.innerHTML = isoinkombo;
   clearing();
+}
+
+function bomb(){
+  for (let i = words.length - 1; i >= 0; i--) {
+    words.pop(i)
+  }
+}
+
+function freeze(){
+  currentlyfreezed = true;
+  clearInterval(wordspawntimer)
+  wordtimer(slowspawnrate)
+  for (let i = words.length - 1; i >= 0; i--) {
+    words[i].speed = 0.2;
+  }
+  unfreeze = setTimeout(function(){ 
+    for (let i = words.length - 1; i >= 0; i--) {
+      words[i].speed = words[i].originalspeed
+    }
+    clearInterval(wordspawntimer)
+    currentlyfreezed = false;
+    wordtimer(wordSpawnRate)
+  }, 5000);
+  
 }
