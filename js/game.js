@@ -37,8 +37,11 @@ let maxLives = 3;
 let selectedDifficulty = "easy";
 let skipIntro = false;
 let closestword = "";
-let currentlyfreezed = false
-let slowspawnrate = 5000
+let currentlyfreezed = false;
+let explosion = false;
+let slowspawnrate = 5000;
+let opacity = 1;  
+let explosioncolor = `rgb(254, 213, 180, ${opacity})`
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
@@ -264,6 +267,19 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     updateWords();
     drawWords();
+    if(currentlyfreezed == true){
+      ctx.fillStyle = "rgba(131, 234, 252, 0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    if(explosion == true){
+      ctx.fillStyle = explosioncolor
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      opacity -= 0.01
+      explosioncolor = `rgb(254, 213, 180, ${opacity})`
+      if(opacity == 0){
+        explosion = false;
+      }
+    }
   }
   requestAnimationFrame(gameLoop);
 }
@@ -384,16 +400,24 @@ function clearing(){
     } catch(error) {
       console.log(error)
     }
+  try{
+    clearInterval(unfreeze);
+    } catch(error) {
+      console.log(error)
+    }
   aika.style.display = "none";
-  console.log("restart")
-  words = []
-  wordSpawnRate = 0
-  kombonyt = 0
-  isoinkombo = 0
+  console.log("restart");
+  words = [];
+  wordSpawnRate = 0;
+  kombonyt = 0;
+  isoinkombo = 0;
+  currentlyfreezed = false;
   kombo.innerHTML = "kombo" + " " + kombonyt;
-  gameOver = true
-  closestword = ""
+  gameOver = true;
+  closestword = "";
   score = 0;
+  explosion = false;
+  opacity = 1;
 }
 
 //set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
@@ -458,6 +482,7 @@ function gameoverscreen(){
 }
 
 function bomb(){
+  explosion = true
   for (let i = words.length - 1; i >= 0; i--) {
     words.pop(i)
   }
@@ -465,18 +490,18 @@ function bomb(){
 
 function freeze(){
   currentlyfreezed = true;
-  clearInterval(wordspawntimer)
-  wordtimer(slowspawnrate)
+  clearInterval(wordspawntimer);
+  wordtimer(slowspawnrate);
   for (let i = words.length - 1; i >= 0; i--) {
     words[i].speed = 0.2;
   }
   unfreeze = setTimeout(function(){ 
     for (let i = words.length - 1; i >= 0; i--) {
-      words[i].speed = words[i].originalspeed
+      words[i].speed = words[i].originalspeed;
     }
-    clearInterval(wordspawntimer)
+    clearInterval(wordspawntimer);
     currentlyfreezed = false;
-    wordtimer(wordSpawnRate)
+    wordtimer(wordSpawnRate);
   }, 5000);
   
 }
