@@ -1,3 +1,16 @@
+/*MUSIIKKIN ASETUKSET */
+const MUSIC_PATHS = {
+  easy: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  medium: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+  hard: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+};
+
+const CLICK_SOUND_URL = "https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3";
+const clickSound = new Audio(CLICK_SOUND_URL);
+clickSound.volume = 0.4;
+
+let currentMusic = null;
+
 /* DOM */
 const gameScene = document.getElementById("game-scene");
 const canvas = document.getElementById("game-canvas");
