@@ -274,6 +274,11 @@ window.addEventListener("resize", resizeCanvas);
 function togglePause() {
   gamePaused = !gamePaused;
   pauseOverlay.classList.toggle("active", gamePaused);
+  if (gamePaused) {
+    if(currentMusic) currentMusic.pause();
+  } else {
+    if(currentMusic) currentMusic.play().catch(e => console.log(e));
+  }
 }
 pauseBtn.onclick = togglePause;
 resumeBtn.onclick = togglePause;
