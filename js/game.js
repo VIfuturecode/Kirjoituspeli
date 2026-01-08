@@ -5,10 +5,6 @@ const MUSIC_PATHS = {
   hard: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
 };
 
-const CLICK_SOUND_URL = "https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3";
-const clickSound = new Audio(CLICK_SOUND_URL);
-clickSound.volume = 0.4;
-
 let currentMusic = null;
 
 /* DOM */
@@ -246,7 +242,7 @@ function startGame(diff) {
   scoreDisplay.textContent = score;
 
   setdifficulty(selectedDifficulty);
-  playMusic(selectedDifficulty); //ALOITTAA MUSIIKKIA
+  playMusic(selectedDifficulty);
 
   lives = maxLives;
   renderLives();
