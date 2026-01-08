@@ -257,6 +257,7 @@ function renderLives() {
 
 /* ALOITA PELI  */
 function startGame(diff) {
+  playClickSound();
   clearing();
   selectedDifficulty = diff;
   // piilotta intro-napit
@@ -268,18 +269,37 @@ function startGame(diff) {
   gameScene.classList.remove("hidden");
 
   console.log("pelinaloitus")
+  score = 0;
   scoreDisplay.textContent = score;
+  kombonyt = 0;
+  isoinkombo =0;
+  kombo,innerHTML = "Kombo: 0";
+  inputText.value = ""; //Nollataan tekstikenttä
 
   setdifficulty(selectedDifficulty);
   playMusic(selectedDifficulty);
 
   lives = maxLives;
-  renderLives();
+  if (gamemode === "zen") {
+    livesDisplay.innerHTML = ""; // Zen-tilassa ei elämiä
+  } else {
+    renderLives();
+  }
 
   gamePaused = false;
   gameOver = false;
-  wordtimer(wordSpawnRate);
 
+  pommikaytetty = false;
+  freezekaytetty = false;
+  pomminappi.classList.remove("hidden");
+  freezenappi.classList.remove("hidden");
+
+  if (gamemode == "aikahaaste") {
+    ajastin();
+  }
+
+  wordtimer(wordSpawnRate);
+  
   pauseOverlay.classList.remove("active");
   gameoverOverlay.classList.remove("active");
 
