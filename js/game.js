@@ -187,7 +187,7 @@ function spawnWord() {
 function updateWords() {
   // closestword tutkii mikä sana on lähimpänä pohjaa ja jos sitä ei ole asetettu, sana valitaan listasta.
   if(words.includes(closestword) != true){
-      closestword.y = 0
+    if(closestword && closestword.y) closestword.y = 0 //TARKISTAA, ONKO LÄHIN SANA OLEMASSA
   }
   for (let i = words.length - 1; i >= 0; i--) {
     words[i].update();
@@ -216,7 +216,7 @@ function updateWords() {
       }
     }
   }
-  if(closestword != ""){
+  if(closestword != "" && typeof closestword === 'object'){
       closestword.highlight = true;
     }
 }
