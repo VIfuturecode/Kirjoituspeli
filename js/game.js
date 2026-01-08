@@ -1,8 +1,8 @@
 /*MUSIIKKIN ASETUKSET */
 const MUSIC_PATHS = {
-  easy: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  medium: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-  hard: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+  easy: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", //helppo taso
+  medium: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", //keskitaso
+  hard: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" //vaikea taso
 };
 
 let currentMusic = null;
