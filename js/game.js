@@ -170,7 +170,7 @@ class Word{
 }
 
 let words = [];
-let wordSpawnRate = 0;
+let wordSpawnRate = 2000;//OLETUSKIRJOITUSNOPEUS
 
 function spawnWord() {
   const randomWord = sana();
