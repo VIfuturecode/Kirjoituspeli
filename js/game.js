@@ -464,6 +464,8 @@ function clearing(){
   score = 0;
   explosion = false;
   opacity = 1;
+
+  stopMusic(); // PYSÄYTTÄÄ MUSIIKKIA
 }
 
 //set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
