@@ -1,3 +1,12 @@
+/*MUSIIKKIN ASETUKSET */
+const MUSIC_PATHS = {
+  easy: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", //helppo taso
+  medium: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", //keskitaso
+  hard: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" //vaikea taso
+};
+
+let currentMusic = null;
+
 /* DOM */
 const gameScene = document.getElementById("game-scene");
 const canvas = document.getElementById("game-canvas");
@@ -46,6 +55,31 @@ let explosion = false;
 let slowspawnrate = 5000;
 let opacity = 1;  
 let explosioncolor = `rgb(254, 213, 180, ${opacity})`;
+
+/*MUSIIKKITOIMINTO*/
+function playMusic(difficulty) {
+  if (currentMusic) {
+    currentMusic.pause();
+    currentMusic.currentTime = 0;
+  }
+
+  let musicKey = difficulty;
+  if (!MUSIC_PATHS[musicKey]) musicKey = "easy";
+
+  currentMusic = new Audio(MUSIC_PATHS[musicKey]);
+  currentMusic.loop = true;
+  currentMusic.volume = 0.5; 
+  currentMusic.muted = typeof isMuted !== 'undefined' ? isMuted : false; 
+    
+  currentMusic.play().catch(e => console.log("Audio play failed:", e));
+}
+
+function stopMusic() {
+  if (currentMusic) {
+    currentMusic.pause();
+    currentMusic.currentTime = 0;
+  }
+}
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
@@ -212,6 +246,7 @@ function startGame(diff) {
   scoreDisplay.textContent = score;
 
   setdifficulty(selectedDifficulty);
+  playMusic(selectedDifficulty);
 
   lives = maxLives;
   renderLives();
@@ -240,6 +275,11 @@ window.addEventListener("resize", resizeCanvas);
 function togglePause() {
   gamePaused = !gamePaused;
   pauseOverlay.classList.toggle("active", gamePaused);
+  if (gamePaused) {
+    if(currentMusic) currentMusic.pause();
+  } else {
+    if(currentMusic) currentMusic.play().catch(e => console.log(e));
+  }
 }
 pauseBtn.onclick = togglePause;
 resumeBtn.onclick = togglePause;
@@ -294,8 +334,11 @@ function wordtimer(sp){
 
 /* EVENTIT */
 muteBtnGame.onclick = () => {
-  isMuted = !isMuted;
-  muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
+  if (typeof isMuted !== 'undefined') {
+    isMuted = !isMuted;
+    muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
+    if (currentMusic) currentMusic.muted = isMuted;
+  }
 };
 pomminappi.onclick = () => bomb();
 freezenappi.onclick = () => freeze();
@@ -427,6 +470,8 @@ function clearing(){
   score = 0;
   explosion = false;
   opacity = 1;
+
+  stopMusic(); // PYSÄYTTÄÄ MUSIIKKIA
 }
 
 //set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
