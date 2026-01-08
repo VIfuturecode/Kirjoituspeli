@@ -17,8 +17,10 @@ const difficultyBadge = document.getElementById("difficulty-badge");
 const difficultyCards = document.querySelectorAll(".difficulty-card");
 const gamemodecards = document.querySelectorAll(".gamemode-card")
 const muteBtnGame = document.getElementById("mute-btn-game");
-const aika = document.getElementById("timer")
-const kombo = document.getElementById("kombo")
+const aika = document.getElementById("timer");
+const kombo = document.getElementById("kombo");
+const pomminappi = document.getElementById("bomb");
+const freezenappi = document.getElementById("freeze");
 var vaikeatsanat = [];
 var helpotsanat = [];
 //sanatlistaan on funktio joka ottaa tekstitiedostoista sanat ja 
@@ -37,11 +39,13 @@ let maxLives = 3;
 let selectedDifficulty = "easy";
 let skipIntro = false;
 let closestword = "";
+let pommikaytetty = false;
+let freezekaytetty = false;
 let currentlyfreezed = false;
 let explosion = false;
 let slowspawnrate = 5000;
 let opacity = 1;  
-let explosioncolor = `rgb(254, 213, 180, ${opacity})`
+let explosioncolor = `rgb(254, 213, 180, ${opacity})`;
 
 /* SANOJEN LIIKKUMINEN  */
 class Word{
@@ -293,7 +297,8 @@ muteBtnGame.onclick = () => {
   isMuted = !isMuted;
   muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
 };
-
+pomminappi.onclick = () => bomb();
+freezenappi.onclick = () => freeze();
 menuBtn.onclick = () => showMenu();
 restartBtn.onclick = () => startGame(selectedDifficulty);
 difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
@@ -411,7 +416,11 @@ function clearing(){
   wordSpawnRate = 0;
   kombonyt = 0;
   isoinkombo = 0;
+  freezekaytetty = false;
+  pommikaytetty = false;
   currentlyfreezed = false;
+  pomminappi.style.visibility = "visible";
+  freezenappi.style.visibility = "visible";
   kombo.innerHTML = "kombo" + " " + kombonyt;
   gameOver = true;
   closestword = "";
@@ -483,25 +492,32 @@ function gameoverscreen(){
 
 function bomb(){
   explosion = true
-  for (let i = words.length - 1; i >= 0; i--) {
-    words.pop(i)
+  if(pommikaytetty == false){
+    for (let i = words.length - 1; i >= 0; i--) {
+      words.pop(i)
   }
+  }
+  pommikaytetty = true
+  pomminappi.style.visibility = "hidden";
 }
 
 function freeze(){
-  currentlyfreezed = true;
-  clearInterval(wordspawntimer);
-  wordtimer(slowspawnrate);
-  for (let i = words.length - 1; i >= 0; i--) {
-    words[i].speed = 0.2;
-  }
-  unfreeze = setTimeout(function(){ 
-    for (let i = words.length - 1; i >= 0; i--) {
-      words[i].speed = words[i].originalspeed;
-    }
+  if(freezekaytetty == false){
+    currentlyfreezed = true;
     clearInterval(wordspawntimer);
-    currentlyfreezed = false;
-    wordtimer(wordSpawnRate);
-  }, 5000);
-  
+    wordtimer(slowspawnrate);
+    for (let i = words.length - 1; i >= 0; i--) {
+      words[i].speed = 0.2;
+    }
+    unfreeze = setTimeout(function(){ 
+      for (let i = words.length - 1; i >= 0; i--) {
+        words[i].speed = words[i].originalspeed;
+      }
+      clearInterval(wordspawntimer);
+      currentlyfreezed = false;
+      wordtimer(wordSpawnRate);
+    }, 5000);
+  }
+  freezekaytetty = true;
+  freezenappi.style.visibility = "hidden";
 }

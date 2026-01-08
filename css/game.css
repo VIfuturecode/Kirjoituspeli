@@ -396,3 +396,42 @@ body.hard-bg {
   font-size:1.8em;
   flex-wrap: wrap;
 }
+
+.itemboard{
+  position: absolute;
+  top:95%;
+  justify-self:center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 1rem;
+  max-width: 270px;
+  width: 100%;
+}
+
+.item{
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(255,255,255,0.1);
+  text-align: center;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: translateY(0);
+}
+
+#bomb{
+  background: rgba(255, 0, 0, 0.529);
+}
+
+#freeze{
+  background: rgba(0, 234, 255, 0.529);
+}
+
+.item:hover {
+  transform: translateY(-30%);
+  transition: translateY(-30%);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+
+
