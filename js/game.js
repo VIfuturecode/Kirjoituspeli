@@ -367,8 +367,10 @@ function gameLoop() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       opacity -= 0.01
       explosioncolor = `rgb(254, 213, 180, ${opacity})`
-      if(opacity == 0){
+      if(opacity <= 0){
         explosion = false;
+        opacity = 1;
+        explosioncolor = `rgb(254, 213, 180, ${opacity})`;
       }
     }
   }
