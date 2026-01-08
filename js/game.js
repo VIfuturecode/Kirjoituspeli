@@ -299,7 +299,7 @@ function startGame(diff) {
   }
 
   wordtimer(wordSpawnRate);
-  
+
   pauseOverlay.classList.remove("active");
   gameoverOverlay.classList.remove("active");
 
@@ -311,8 +311,10 @@ function startGame(diff) {
 function resizeCanvas() {
   const header = gameScene.querySelector("header");
   const footer = gameScene.querySelector("footer");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight - header.offsetHeight - footer.offsetHeight;
+  if (header && footer) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight - header.offsetHeight - footer.offsetHeight;
+  }
 }
 window.addEventListener("resize", resizeCanvas);
 
