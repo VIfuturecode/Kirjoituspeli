@@ -246,6 +246,7 @@ function startGame(diff) {
   scoreDisplay.textContent = score;
 
   setdifficulty(selectedDifficulty);
+  playMusic(selectedDifficulty); //ALOITTAA MUSIIKKIA
 
   lives = maxLives;
   renderLives();
