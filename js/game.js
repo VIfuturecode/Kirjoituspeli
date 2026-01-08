@@ -612,14 +612,16 @@ function gameoverscreen(){
 
 //bomb funktio laittaa explosion = true jolloin peli tietää tehdä näytön välähdyksen ja poistaa kaikki sanat listalta
 function bomb(){
+  if (gamePaused || gameOver || pommikaytetty) return;
+  pommikaytetty = true;
+  pomminappi.classList.add("hidden");//Piilota käytön jälkeen
   explosion = true
-  if(pommikaytetty == false){
-    for (let i = words.length - 1; i >= 0; i--) {
-      words.pop(i)
+  words = []; // Tyhjennä kaikki sanat
+  opacity = 1;
+  if(typeof isMuted === 'undefined' || !isMuted) {
+    bombSound.currentTime = 0;
+    bombSound.play().catch(e => {});
   }
-  }
-  pommikaytetty = true
-  pomminappi.style.visibility = "hidden";
 }
 
 //freeze asettaa pelille hitaamman spawntimerin ja hidastaa jokaisen sanan nopeutta kunnes aika on ohi jolloin peli
