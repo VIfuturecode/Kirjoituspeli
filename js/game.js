@@ -535,6 +535,7 @@ function gameoverscreen(){
   clearing();
 }
 
+//bomb funktio laittaa explosion = true jolloin peli tietää tehdä näytön välähdyksen ja poistaa kaikki sanat listalta
 function bomb(){
   explosion = true
   if(pommikaytetty == false){
@@ -546,6 +547,8 @@ function bomb(){
   pomminappi.style.visibility = "hidden";
 }
 
+//freeze asettaa pelille hitaamman spawntimerin ja hidastaa jokaisen sanan nopeutta kunnes aika on ohi jolloin peli
+//asettuu takaisin alkuperäiseen nopeuteen
 function freeze(){
   if(freezekaytetty == false){
     currentlyfreezed = true;
