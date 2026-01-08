@@ -329,7 +329,11 @@ function gameLoop() {
 }
 
 function wordtimer(sp){
-  wordspawntimer = setInterval(function () {spawnWord();}, sp);
+  wordspawntimer = setInterval(function () {
+    if(gamePaused != true){
+      spawnWord();
+    }
+  }, sp);
 }
 
 /* EVENTIT */
@@ -414,25 +418,27 @@ function cardclicked(m){
 //ajastin luo aikahaasteeseen 60 sekunnin ajastimen yläpuolelle näyttöä sekä laskee itsestään 60 sekunttia kunnes aiheuttaa game over näytön
 function ajastin(){
   var timer = 60
-  currenttime = setInterval(function () {timer = timer -1, aika.innerHTML = timer}, 1000);
-  peliajastin = setTimeout(function(){ 
+  currenttime = setInterval(function () {
+    if(gamePaused != true){
+      timer = timer -1, aika.innerHTML = timer
+    }
+    if(timer == 0){
       clearInterval(currenttime);
       gameOver = true;
       gameoverOverlay.classList.add("active");
       finalScoreDisplay.textContent = score;
       finalkomboDisplay.innerHTML = isoinkombo;
-  }, 60000);
-  
+    }
+  }, 1000);
 }
 
 //clearing clearaa nyt kaikki intervallit ja timeoutit, sekä asettaa muutaman asian takaisin missä se alunperin oli
-//try kohdassa koodi tarkistaa onko currentime, peliajastin ja nopeutusta olemassa
-//jos niitä ei ole olemassa, niin kirjoittaa consoleen errorin mutta peli jatkuu
+//try kohdassa koodi tarkistaa onko tiettyjä koodeja olemassa
+//jos niitä ei ole olemassa, niin kirjoittaa consoleen errorin mutta peli jatkuu, kunnes ne luodaan toisessa pelimuodossa
 function clearing(){
   if(gamemode == "aikahaaste"){
     try{
       clearInterval(currenttime);
-      clearTimeout(peliajastin);
     } catch(error) {
       console.log(error)
     }
@@ -465,6 +471,7 @@ function clearing(){
   pomminappi.style.visibility = "visible";
   freezenappi.style.visibility = "visible";
   kombo.innerHTML = "kombo" + " " + kombonyt;
+  inputText.value = "";
   gameOver = true;
   closestword = "";
   score = 0;
