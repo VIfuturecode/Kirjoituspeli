@@ -333,8 +333,11 @@ function wordtimer(sp){
 
 /* EVENTIT */
 muteBtnGame.onclick = () => {
-  isMuted = !isMuted;
-  muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
+  if (typeof isMuted !== 'undefined') {
+    isMuted = !isMuted;
+    muteBtnGame.textContent = isMuted ? "Mykistetty" : "Ääni";
+    if (currentMusic) currentMusic.muted = isMuted;
+  }
 };
 
 menuBtn.onclick = () => showMenu();
