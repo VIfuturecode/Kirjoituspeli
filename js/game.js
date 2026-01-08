@@ -7,6 +7,13 @@ const MUSIC_PATHS = {
 
 let currentMusic = null;
 
+//YLEINEN KLIKKAUSÄÄNI KÄYTTÖLIITTYMÄLLE
+const clickSound = new Audio("sounds/click.mp3");
+const hoverSound = new Audio("sounds/click.mp3");
+const gameOverSound = new Audio("sounds/gameover.mp3");
+const bombSound = new Audio("sounds/bomb.mp3");
+const freezeSound = new Audio("sounds/freeze.mp3");
+
 /* DOM */
 const gameScene = document.getElementById("game-scene");
 const canvas = document.getElementById("game-canvas");
@@ -55,6 +62,8 @@ let explosion = false;
 let slowspawnrate = 5000;
 let opacity = 1;  
 let explosioncolor = `rgb(254, 213, 180, ${opacity})`;
+let wordspawntimer;
+let currenttime; //AJASTIMELLE
 
 /*MUSIIKKITOIMINTO*/
 function playMusic(difficulty) {
@@ -79,6 +88,21 @@ function stopMusic() {
     currentMusic.pause();
     currentMusic.currentTime = 0;
   }
+}
+
+//KLIKKAUSÄÄNI FUNKTIO
+function playClickSound() {
+  if (typeof isMuted !== 'undefined' && isMuted) return;
+    clickSound.currentTime = 0;
+    clickSound.volume = 0.3;
+    clickSound.play().catch(e => console.log("Click sound failed:", e));
+}
+
+function playHoverSound() {
+  if (typeof isMuted !== 'undefined' && isMuted) return;
+  hoverSound.currentTime = 0;
+  hoverSound.volume = 0.1;
+  hoverSound.play().catch(e => console.log("Hover sound failed:", e));
 }
 
 /* SANOJEN LIIKKUMINEN  */
