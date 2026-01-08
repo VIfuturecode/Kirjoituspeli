@@ -559,10 +559,30 @@ function komboresetointi(){
 
 //gameoverscreen funktio lopetaa pelin ja näyttää gameover näytön
 function gameoverscreen(){
+  gameOver = true;
   gameoverOverlay.classList.add("active");
   finalScoreDisplay.textContent = score;
   finalkomboDisplay.innerHTML = isoinkombo;
-  clearing();
+  stopMusic();
+
+  if (typeof isMuted === 'undefined' || !isMuted) {
+    if (gamemode === "zen") {
+        // Peli ei päätyy eikä tule voittoja Zen tilassa, mutta jos kutsutaan:
+        return;
+    }
+
+    const isWin = (gamemode === "aikahaaste" && score >= 100) || 
+                  (gamemode === "selviytymistila" && score >= 500);
+
+    if (isWin) {
+        winSound.currentTime = 0;
+        winSound.play().catch(e => {});
+    } else {
+        // Peli päätyy ääni
+        gameOverVoice.currentTime = 0;
+        gameOverVoice.play().catch(e => {});
+    }
+  }
 }
 
 //bomb funktio laittaa explosion = true jolloin peli tietää tehdä näytön välähdyksen ja poistaa kaikki sanat listalta
