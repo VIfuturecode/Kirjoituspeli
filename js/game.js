@@ -236,6 +236,7 @@ function checkWord(typedWord) {
       scoreDisplay.textContent = score;
       kombonyt += 1;
       kombo.innerHTML = "kombo" + " " + kombonyt;
+      if (kombonyt > isoinkombo) isoinkombo = kombonyt;//SEURAA MAXIMI KOMBON
       return true;
     }
   }
@@ -551,9 +552,7 @@ function setdifficulty(diff){
 }
 //komboresetointi tekee kombon resetoinnin sekä näyttämisen ja isoimman kombon tallentamisen 
 function komboresetointi(){
-  if(kombonyt > isoinkombo){
-    isoinkombo = kombonyt
-  }
+  if(kombonyt > isoinkombo) isoinkombo = kombonyt;
   kombonyt = 0;
   kombo.innerHTML = "kombo" + " " + kombonyt;  
 }
