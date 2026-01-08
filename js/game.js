@@ -56,6 +56,31 @@ let slowspawnrate = 5000;
 let opacity = 1;  
 let explosioncolor = `rgb(254, 213, 180, ${opacity})`
 
+/*MUSIIKKITOIMINTO*/
+function playMusic(difficulty) {
+  if (currentMusic) {
+    currentMusic.pause();
+    currentMusic.currentTime = 0;
+  }
+
+  let musicKey = difficulty;
+  if (!MUSIC_PATHS[musicKey]) musicKey = "easy";
+
+  currentMusic = new Audio(MUSIC_PATHS[musicKey]);
+  currentMusic.loop = true;
+  currentMusic.volume = 0.5; 
+  currentMusic.muted = typeof isMuted !== 'undefined' ? isMuted : false; 
+    
+  currentMusic.play().catch(e => console.log("Audio play failed:", e));
+}
+
+function stopMusic() {
+  if (currentMusic) {
+    currentMusic.pause();
+    currentMusic.currentTime = 0;
+  }
+}
+
 /* SANOJEN LIIKKUMINEN  */
 class Word{
   constructor(text, x, y, speed){
