@@ -378,8 +378,9 @@ function gameLoop() {
 }
 
 function wordtimer(sp){
+  try { clearInterval(wordspawntimer); } catch(e){}
   wordspawntimer = setInterval(function () {
-    if(gamePaused != true){
+    if(gamePaused != true && !gameOver){
       spawnWord();
     }
   }, sp);
