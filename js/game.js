@@ -13,6 +13,7 @@ const hoverSound = new Audio("sounds/click.mp3.wav");
 const gameOverSound = new Audio("sounds/gameover.mp3.wav");
 const bombSound = new Audio("sounds/bomb.mp3.wav");
 const freezeSound = new Audio("sounds/freeze.mp3.wav");
+const winSound = new Audio("sounds/win.mp3.wav");
 
 /* DOM */
 const gameScene = document.getElementById("game-scene");
