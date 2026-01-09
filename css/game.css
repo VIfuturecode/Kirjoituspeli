@@ -309,24 +309,7 @@ body.hard-bg {
   transform: scale(1.05);
 }
 
-#mute-btn-game {
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
-  background: rgba(99,102,241,0.8);
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#mute-btn-game:hover {
-  background: rgba(99,102,241,1);
-  transform: scale(1.05);
-}
-
 /* pelimuoto scene */
-
 #gamemode-scene{
   min-height: 100vh;
   display: flex;
@@ -334,6 +317,11 @@ body.hard-bg {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+}
+
+#gamemode-scene .menu-title {
+  margin-top: -3rem;
+  margin-bottom: 2rem;
 }
 
 .gamemode-cards{
@@ -354,34 +342,12 @@ body.hard-bg {
   animation: slideUp 0.5s ease-out backwards;
 }
 
-.gamemode-card:nth-child(1) { animation-delay: 0s; }
-.gamemode-card:nth-child(2) { animation-delay: 0.15s; }
-.gamemode-card:nth-child(3) { animation-delay: 0.3s; }
   
 .gamemode-card:hover {
   transform: scale(1.05);
   border-color: rgba(99,102,241,0.5);
   box-shadow: 0 0 30px rgba(99,102,241,0.3);
 }
-  
-.gamemode-card[data-difficulty="easy"]:hover {
-  border-color: rgba(16,185,129,0.7);
-  box-shadow: 0 0 30px rgba(16,185,129,0.4);
-}
-  
-.gamemode-card[data-difficulty="medium"]:hover {
-  border-color: rgba(245,158,11,0.7);
-  box-shadow: 0 0 30px rgba(245,158,11,0.4);
-}
-  
-.gamemode-card[data-difficulty="hard"]:hover {
-  border-color: rgba(239,68,68,0.7);
-  box-shadow: 0 0 30px rgba(239,68,68,0.4);
-}
-
-.easy-icon { background: rgba(16,185,129,0.2); }
-.medium-icon { background: rgba(245,158,11,0.2); }
-.hard-icon { background: rgba(239,68,68,0.2); }
   
 #timer {
   display: flex;
@@ -397,40 +363,41 @@ body.hard-bg {
   flex-wrap: wrap;
 }
 
+/*POMMI JA JÄÄHDYTYS NAPIT*/
 .itemboard{
   position: absolute;
-  top:95%;
-  justify-self:center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  gap: 1rem;
-  max-width: 270px;
-  width: 100%;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 10;
 }
 
 .item{
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 2px solid rgba(255,255,255,0.1);
-  text-align: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transform: translateY(0);
-  transition: translateY(0);
+  transition: all 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 #bomb{
-  background: rgba(255, 0, 0, 0.529);
+  background: rgba(239, 68, 68, 0.4);
 }
 
 #freeze{
-  background: rgba(0, 234, 255, 0.529);
+  background: rgba(6, 182, 212, 0.4);
 }
 
 .item:hover {
-  transform: translateY(-30%);
-  transition: translateY(-30%);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 
