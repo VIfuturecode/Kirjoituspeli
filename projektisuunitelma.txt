@@ -1,0 +1,178 @@
+Projektisuunnitelma – Kirjoituspeli (Typing Rush)
+
+1. Projektin perustiedot
+
+Projektin nimi: Typing Rush  
+Projektityyppi: Selainpohjainen kirjoituspeli (Canvas)  
+Kesto: 3 viikkoa  
+
+Tiimi:
+- Arttu Hasa
+- Viktoria Vetserkovskaja
+
+Työkalut ja teknologiat:
+- HTML5
+- CSS
+- JavaScript (Canvas API)
+- Visual Studio Code
+- GitHub (versionhallinta)
+- Microsoft Teams (kommunikointi)
+
+Typing Rush on selainpohjainen kirjoituspeli, jossa pelaajan tavoitteena on kirjoittaa ruudulle putoavia sanoja ennen kuin ne osuvat alarajaan. Peli on visuaalisesti selkeä ja helppokäyttöinen, mutta sisältää myös haastavampia ominaisuuksia, kuten vaikeustasoja, pisteytyksen ja erikoissanoja.
+
+Projekti toteutetaan parityönä, ja molemmat osallistuvat aktiivisesti sekä pelilogiikan että käyttöliittymän kehittämiseen. Vastuualueet on jaettu siten, että työmäärä ja tekninen vaativuus ovat tasapainossa ja kummallekin kertyy monipuolista osaamista.
+
+
+2. Projektin tavoitteet
+
+- Toteuttaa toimiva ja pelattava selainpohjainen kirjoituspeli
+- Käyttää HTML Canvas -tekniikkaa pelin renderöintiin
+- Harjoitella ja osoittaa osaamista HTML-, CSS- ja JavaScript-teknologioissa
+- Toteuttaa selkeä pelilogiikka (pisteet, elämät, pelin loppuminen)
+- Dokumentoida työ asianmukaisesti näyttötyötä varten
+
+
+3. Pelin perustoiminnot
+
+- Canvas-pohjainen pelialue
+- Putoavat sanat ylhäältä alaspäin
+- Pelaaja kirjoittaa sanat näppäimistöllä
+- Sana katoaa, kun se on kirjoitettu oikein
+- Elämä vähenee, jos sana osuu alarajaan ja kombo nollautuu
+- Pisteet kasvavat oikein kirjoitetuista sanoista
+- Peli päättyy, kun elämät loppuvat (pl. Zen-tila)
+
+
+4. Pelimekaniikat ja jatkokehitys
+
+4.1 Vaikeustasot
+
+Helppo:
+- Lyhyet sanat
+- Hidas putoamisnopeus
+
+Keskitaso:
+- Pidemmät sanat
+- Nopeampi tahti
+
+Vaikea:
+- Useita sanoja samanaikaisesti
+- Samankaltaisia sanoja (esim. "talo" / "talot")
+
+
+4.2 Kombo ja pisteytys
+
+- 3 oikein kirjoitettua sanaa peräkkäin -> x2 pisteet
+- Kombo kasvaa jatkossa (x3, x4 jne.)
+- Virheellinen sana tai alarajaan osuva sana nollaa kombon
+
+
+4.3 Erikoissanat
+
+Punainen sana:
+- Pakko kirjoittaa
+- Jos osuu alarajaan, menetät elämän
+
+Jäädytys:
+- Hidastaa kaikkien sanojen liikettä hetkellisesti
+
+Pommi:
+- Poistaa kaikki sanat ruudulta
+
+
+4.4 Pelimuodot
+
+Aikahaaste:
+- Esim. 60 sekuntia
+- Tavoitteena kerätä mahdollisimman paljon pisteitä
+
+Selviytymistila:
+- Peli jatkuu niin kauan kuin elämät riittävät
+
+Zen-tila:
+- Ei häviötä
+- Tarkoitettu harjoitteluun
+
+
+5. Tehtävälista ja työnjako (50 % / 50 %)
+
+Työ jaetaan tasapuolisesti siten, että molemmat saavat kokemusta sekä pelilogiikasta että käyttöliittymästä. Molemmat osallistuvat suunnitteluun, toteutukseen ja testaukseen.
+
+Arttu (50 %):
+- Pelin valikot ja UI-elementit
+- Sanalistat ja satunnainen sananvalinta vaikeustason mukaan
+- Nopeuden säätö ja vaikeustason skaalaus
+- Kombotoiminto sekä sen näyttäminen ja menettäminen
+- Aktiivisen sanan visuaalinen korostus
+- Erikoissanat ja esineet (jäähdytys, pommi, punainen sana)
+- Pelimuotojen toteutus (Zen, aikahaaste, selviytymistila)
+- Pelialueen ja HUD-elementtien CSS-tyylittely (kombo, erikoissanat ja esineet, Osittain pelimuodon valinta)
+
+Viktoria (50 %):
+- Nettisivun perusrakenne (HTML)
+- Aloitus-, intro- ja lopetusruudut sekä niiden toiminnallisuudet
+- Canvas-alueen luonti ja pelialueen hallinta
+- Pelialueen ja HUD-elementtien CSS-tyylittely (pisteet, elämät, layout)
+- Kirjoitustoiminto ja näppäinsyötteen käsittely
+- Sanojen lisääminen canvas-alueelle ja niiden liikkuminen
+- Elämät ja häviölogiikka
+- Pelin resetointi, pause- ja skip intro -toiminnot
+- Responsiivinen canvas ja CSS-animaatiot
+- Intro (hahmot, dialogi, hahmokohtaiset puheasetukset)
+- Skip-Intro -toiminto
+- Ääniasetukset ja äänimaailman toteutus:
+  - klikkausääni
+  - jäädytysääni
+  - pommiääni
+  - game over -ääni
+  - taustamusiikki eri vaikeustasoille
+
+
+Yhteiset tehtävät:
+- Peliloopin (game loop) suunnittelu ja hallinta
+- Pelilogiikan ja käyttöliittymän suunnittelu
+- Testaus ja bugien korjaus
+- Versionhallinta GitHubissa
+- Dokumentointi
+
+
+6. Aikataulu (3 viikkoa)
+
+Viikko 1 – Suunnittelu ja perusrakenne
+- Projektin suunnittelu ja ideointi
+- GitHub-repositorion luonti
+- Perusrakenne (HTML, Canvas, CSS)
+- Ensimmäinen toimiva prototyyppi
+
+Viikko 2 – Pelilogiikka ja ominaisuudet
+- Sanojen putoaminen ja kirjoittaminen
+- Pisteytys, kombo ja elämät
+- Vaikeustasot
+- Erikoissanat
+- CSS-viimeistely ja responsiivisuus
+
+Viikko 3 – Viimeistely ja dokumentointi
+- Ääniefektit ja visuaaliset efektit
+- Pause ja resetointi
+- Bugikorjaukset ja testaus
+- Visuaalinen viimeistely
+- Loppuraportti ja dokumentaatio
+
+
+7. Työkalut ja versionhallinta
+
+- Visual Studio Code
+- GitHub (branchit, commit-viestit, yhteistyö)
+- Microsoft Teams
+
+
+8. Dokumentointi näyttötyöhön
+
+- Projektisuunnitelma
+- GitHub-commitit ja kehityshistoria
+- Loppuraportti ja oma arviointi
+
+
+9. Yhteenveto
+
+Typing Rush -projekti osoittaa osaamista JavaScript-pelilogiikasta, HTML Canvas -tekniikasta, käyttöliittymän suunnittelusta sekä versionhallinnasta. Tasapuolinen työnjako, selkeä aikataulu ja huolellinen dokumentointi varmistavat, että projekti soveltuu hyvin näyttötyöksi.
