@@ -469,6 +469,7 @@ function sana(){
 }
 
 function cardclicked(m){
+  playClickSound();
   gamemode = m;
   menuScene.classList.remove("hidden");
   gamemodescene.classList.add("hidden");
