@@ -398,8 +398,14 @@ pomminappi.onclick = () => bomb();
 freezenappi.onclick = () => freeze();
 menuBtn.onclick = () => showMenu();
 restartBtn.onclick = () => startGame(selectedDifficulty);
-difficultyCards.forEach(c => c.onclick = () => startGame(c.dataset.difficulty));
-gamemodecards.forEach(c => c.onclick = () => cardclicked(c.dataset.mode));
+difficultyCards.forEach(c => {
+  c.onclick = () => startGame(c.dataset.difficulty);
+  c.onmouseenter = playHoverSound;
+});
+gamemodecards.forEach(c => {
+  c.onclick = () => cardclicked(c.dataset.mode);
+  c.onmouseenter = playHoverSound;
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "p") {
