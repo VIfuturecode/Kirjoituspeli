@@ -492,53 +492,26 @@ function ajastin(){
   }, 1000);
 }
 
-//clearing clearaa nyt kaikki intervallit ja timeoutit, sekä asettaa muutaman asian takaisin missä se alunperin oli
-//try kohdassa koodi tarkistaa onko tiettyjä koodeja olemassa
-//jos niitä ei ole olemassa, niin kirjoittaa consoleen errorin mutta peli jatkuu, kunnes ne luodaan toisessa pelimuodossa
+//siistitty clearing funktio
 function clearing(){
   if(gamemode == "aikahaaste"){
     try{
       clearInterval(currenttime);
-    } catch(error) {
-      console.log(error)
-    }
-  }else if(gamemode == "selviytymistila"){
-    try{
-      clearInterval(nopeutus);
-    } catch(error) {
-      console.log(error)
-    }
+    } catch(e) { console.log(e); }
   }
+
   try{
     clearInterval(wordspawntimer);
-    } catch(error) {
-      console.log(error)
-    }
-  try{
-    clearInterval(unfreeze);
-    } catch(error) {
-      console.log(error)
-    }
-  aika.style.display = "none";
-  console.log("restart");
+  }  catch(e) { console.log(e); }
+
+  
   words = [];
-  wordSpawnRate = 0;
-  kombonyt = 0;
-  isoinkombo = 0;
-  freezekaytetty = false;
-  pommikaytetty = false;
-  currentlyfreezed = false;
-  pomminappi.style.visibility = "visible";
-  freezenappi.style.visibility = "visible";
-  kombo.innerHTML = "kombo" + " " + kombonyt;
-  inputText.value = "";
+  kombo.innerHTML = "kombo: 0";
+  aika.innerHTML = "";
   gameOver = true;
   closestword = "";
   score = 0;
-  explosion = false;
-  opacity = 1;
-
-  stopMusic(); // PYSÄYTTÄÄ MUSIIKKIA
+  lives = maxLives;
 }
 
 //set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
