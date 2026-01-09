@@ -94,14 +94,14 @@ function stopMusic() {
 function playClickSound() {
   if (typeof isMuted !== 'undefined' && isMuted) return;
   // Luodaan uusi Audio-olio joka kerta, jotta ääni voi soida päällekkäin ja varmasti alusta
-  const sound = new Audio("/sounds/click.mp3");
+  const sound = new Audio("sounds/click.mp3.wav");
   sound.volume = 0.3;
   sound.play().catch(e => console.log("Click sound failed:", e));
 }
 
 function playHoverSound() {
   if (typeof isMuted !== 'undefined' && isMuted) return;
-  const sound = new Audio("/sounds/click.mp3");
+  const sound = new Audio("sounds/click.mp3.wav");
   sound.volume = 0.1;
   sound.play().catch(e => console.log("Hover sound failed:", e));
 }
@@ -273,8 +273,8 @@ function gameoverscreen(){
         winSound.play().catch(e => {});
     } else {
         // Peli päätyy ääni
-        gameOverVoice.currentTime = 0;
-        gameOverVoice.play().catch(e => {});
+        gameOverSound.currentTime = 0;
+        gameOverSound.play().catch(e => {});
     }
   }
 }
@@ -284,6 +284,14 @@ function setdifficulty(diff) {
   difficultyBadge.className = diff;
   difficultyBadge.textContent = diff.toUpperCase();
 }
+
+// Tapahtumankuuntelijat hover-äänille korteille
+difficultyCards.forEach(card => {
+  card.addEventListener("mouseenter", playHoverSound);
+});
+gamemodecards.forEach(card => {
+  card.addEventListener("mouseenter", playHoverSound);
+});
 
 /* SYDÄMET  */
 function renderLives() {
