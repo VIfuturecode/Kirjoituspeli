@@ -445,7 +445,7 @@ function sanatlistaan(){
     .then(text => {
       const lines = text.split(/\r?\n/)
       for(var i = 0; i < lines.length; i++){
-        helpotsanat.push(lines[i]);
+        if(lines[i].trim()) helpotsanat.push(lines[i].trim());
       }
     })
   fetch("vaikeat.txt")
@@ -453,15 +453,17 @@ function sanatlistaan(){
     .then(text => {
       const lines = text.split(/\r?\n/)
       for(var i = 0; i < lines.length; i++){
-        vaikeatsanat.push(lines[i]);
+        if(lines[i].trim()) vaikeatsanat.push(lines[i].trim());
       } 
     })
 }
 //kutsumalla funktiota sana() se palauttaa satunnaisen sanan vaikeustason mukaan
 function sana(){
   if(selectedDifficulty == "easy" || selectedDifficulty == "medium"){
+    if (helpotsanat.length === 0) return "loading";
     return helpotsanat[Math.floor(Math.random() * helpotsanat.length)];
   } else {
+    if (vaikeatsanat.length === 0) return "loading";
     return vaikeatsanat[Math.floor(Math.random() * vaikeatsanat.length)];
   }
 }
