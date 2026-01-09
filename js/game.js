@@ -53,7 +53,7 @@ let score = 0;
 let lives = 3;
 let maxLives = 3;
 let selectedDifficulty = "easy";
-let skipIntro = false;
+//let skipIntro = false; // On olemassa jo introssa
 let closestword = "";
 let pommikaytetty = false;
 let freezekaytetty = false;
@@ -93,9 +93,9 @@ function stopMusic() {
 //KLIKKAUSÄÄNI FUNKTIO
 function playClickSound() {
   if (typeof isMuted !== 'undefined' && isMuted) return;
-    clickSound.currentTime = 0;
-    clickSound.volume = 0.3;
-    clickSound.play().catch(e => console.log("Click sound failed:", e));
+  clickSound.currentTime = 0;
+  clickSound.volume = 0.3;
+  clickSound.play().catch(e => console.log("Click sound failed:", e));
 }
 
 function playHoverSound() {
@@ -170,7 +170,7 @@ class Word{
 }
 
 let words = [];
-let wordSpawnRate = 2000;//OLETUSKIRJOITUSNOPEUS
+let wordSpawnRate = 2000;//Oletuskirjoitusnopeus
 
 function spawnWord() {
   const randomWord = sana();
@@ -243,6 +243,47 @@ function checkWord(typedWord) {
   return false;
 }
 
+//komboresetointi tekee kombon resetoinnin sekä näyttämisen ja isoimman kombon tallentamisen 
+function komboresetointi(){
+  if(kombonyt > isoinkombo) isoinkombo = kombonyt;
+  kombonyt = 0;
+  kombo.innerHTML = "kombo" + " " + kombonyt;  
+}
+
+//gameoverscreen funktio lopetaa pelin ja näyttää gameover näytön
+function gameoverscreen(){
+  gameOver = true;
+  gameoverOverlay.classList.add("active");
+  finalScoreDisplay.textContent = score;
+  finalkomboDisplay.innerHTML = isoinkombo;
+  stopMusic();
+
+  if (typeof isMuted === 'undefined' || !isMuted) {
+    if (gamemode === "zen") {
+        // Peli ei päätyy eikä tule voittoja Zen tilassa, mutta jos kutsutaan:
+        return;
+    }
+
+    const isWin = (gamemode === "aikahaaste" && score >= 100) || 
+                  (gamemode === "selviytymistila" && score >= 500);
+
+    if (isWin) {
+        winSound.currentTime = 0;
+        winSound.play().catch(e => {});
+    } else {
+        // Peli päätyy ääni
+        gameOverVoice.currentTime = 0;
+        gameOverVoice.play().catch(e => {});
+    }
+  }
+}
+
+function setdifficulty(diff) {
+  document.body.className = diff + "-bg";
+  difficultyBadge.className = diff;
+  difficultyBadge.textContent = diff.toUpperCase();
+}
+
 /* SYDÄMET  */
 function renderLives() {
   livesDisplay.innerHTML = "";
@@ -273,7 +314,7 @@ function startGame(diff) {
   scoreDisplay.textContent = score;
   kombonyt = 0;
   isoinkombo =0;
-  kombo,innerHTML = "Kombo: 0";
+  kombo.innerHTML = "Kombo: 0";
   inputText.value = ""; //Nollataan tekstikenttä
 
   setdifficulty(selectedDifficulty);
@@ -386,6 +427,43 @@ function wordtimer(sp){
   }, sp);
 }
 
+//bomb funktio laittaa explosion = true jolloin peli tietää tehdä näytön välähdyksen ja poistaa kaikki sanat listalta
+function bomb(){
+  if (gamePaused || gameOver || pommikaytetty) return;
+  pommikaytetty = true;
+  pomminappi.classList.add("hidden");//Piilota käytön jälkeen
+  explosion = true
+  words = []; // Tyhjennä kaikki sanat
+  opacity = 1;
+  if(typeof isMuted === 'undefined' || !isMuted) {
+    bombSound.currentTime = 0;
+    bombSound.play().catch(e => {});
+  }
+}
+
+//freeze asettaa pelille hitaamman spawntimerin ja hidastaa jokaisen sanan nopeutta kunnes aika on ohi jolloin peli
+//asettuu takaisin alkuperäiseen nopeuteen
+function freeze(){
+  if (gamePaused || gameOver || currentlyfreezed || freezekaytetty) return;
+  freezekaytetty = true;
+  freezenappi.classList.add("hidden");//Piilota käytön jälkeen
+  currentlyfreezed = true;
+
+  if (typeof isMuted === 'undefined' || !isMuted) {
+    freezeSound.currentTime = 0;
+    freezeSound.play().catch(e => {});
+  }
+
+  //Hidastaa olemassa olevia sanoja
+  words.forEach(w => w.speed = 0.2);
+
+  //Nollaa 5 sekunti kuluttua
+  setTimeout(() => {
+    currentlyfreezed = false;
+    words.forEach(w => w.speed = w.originalspeed);
+  }, 5000);
+}
+
 /* EVENTIT */
 muteBtnGame.onclick = () => {
   if (typeof isMuted !== 'undefined') {
@@ -396,7 +474,10 @@ muteBtnGame.onclick = () => {
 };
 pomminappi.onclick = () => bomb();
 freezenappi.onclick = () => freeze();
-menuBtn.onclick = () => showMenu();
+menuBtn.onclick = () => {
+  stopMusic();
+  showMenu();
+};
 restartBtn.onclick = () => startGame(selectedDifficulty);
 difficultyCards.forEach(c => {
   c.onclick = () => startGame(c.dataset.difficulty);
@@ -506,126 +587,11 @@ function clearing(){
 
   
   words = [];
-  kombo.innerHTML = "kombo: 0";
-  aika.innerHTML = "";
-  gameOver = true;
   closestword = "";
   score = 0;
   lives = maxLives;
+  kombo.innerHTML = "kombo: 0";
+  aika.innerHTML = "";
+  inputText.value = ""; //Nollataan tekstikenttä
 }
 
-//set difficulty katsoo pelin vaikeustason ja asettaa ne kun funktiota kutsutaan ja annetaan sille difficulty. 
-function setdifficulty(diff){
-  document.body.className = diff + "-bg";
-
-  difficultyBadge.className = diff;
-  difficultyBadge.textContent =
-    diff === "easy" ? "HELPPO" :
-    diff === "medium" ? "KESKITASO" : "VAIKEA";
-
-  if(gamemode == "selviytymistila"){
-    livesDisplay.style.display = "inline"
-    wordSpawnRate = 2000;
-    nopeutus = setInterval(function () {wordSpawnRate -= 100; console.log(wordSpawnRate); if(wordSpawnRate == 500){clearInterval(nopeutus)}}, 10000);
-    if (diff === "easy") {
-      maxLives = 5;
-    } else if (diff === "medium") {
-      maxLives = 3;
-    } else {
-      maxLives = 2;
-    };
-  } 
-  else if(gamemode == "zen"){
-    livesDisplay.style.display = "none"
-    if (diff === "easy") {
-      wordSpawnRate = 1500;
-    } else if (diff === "medium") {
-      wordSpawnRate = 1100;
-    } else {
-      wordSpawnRate = 1000;
-    };
-  } else if(gamemode == "aikahaaste"){
-    if (diff === "easy") {
-      wordSpawnRate = 1000;
-    } else if (diff === "medium") {
-      wordSpawnRate = 1000;
-    } else {
-      wordSpawnRate = 1000;
-    };
-    livesDisplay.style.display = "none"
-    aika.style.display = "inline"; 
-    ajastin();
-  }
-
-}
-//komboresetointi tekee kombon resetoinnin sekä näyttämisen ja isoimman kombon tallentamisen 
-function komboresetointi(){
-  if(kombonyt > isoinkombo) isoinkombo = kombonyt;
-  kombonyt = 0;
-  kombo.innerHTML = "kombo" + " " + kombonyt;  
-}
-
-//gameoverscreen funktio lopetaa pelin ja näyttää gameover näytön
-function gameoverscreen(){
-  gameOver = true;
-  gameoverOverlay.classList.add("active");
-  finalScoreDisplay.textContent = score;
-  finalkomboDisplay.innerHTML = isoinkombo;
-  stopMusic();
-
-  if (typeof isMuted === 'undefined' || !isMuted) {
-    if (gamemode === "zen") {
-        // Peli ei päätyy eikä tule voittoja Zen tilassa, mutta jos kutsutaan:
-        return;
-    }
-
-    const isWin = (gamemode === "aikahaaste" && score >= 100) || 
-                  (gamemode === "selviytymistila" && score >= 500);
-
-    if (isWin) {
-        winSound.currentTime = 0;
-        winSound.play().catch(e => {});
-    } else {
-        // Peli päätyy ääni
-        gameOverVoice.currentTime = 0;
-        gameOverVoice.play().catch(e => {});
-    }
-  }
-}
-
-//bomb funktio laittaa explosion = true jolloin peli tietää tehdä näytön välähdyksen ja poistaa kaikki sanat listalta
-function bomb(){
-  if (gamePaused || gameOver || pommikaytetty) return;
-  pommikaytetty = true;
-  pomminappi.classList.add("hidden");//Piilota käytön jälkeen
-  explosion = true
-  words = []; // Tyhjennä kaikki sanat
-  opacity = 1;
-  if(typeof isMuted === 'undefined' || !isMuted) {
-    bombSound.currentTime = 0;
-    bombSound.play().catch(e => {});
-  }
-}
-
-//freeze asettaa pelille hitaamman spawntimerin ja hidastaa jokaisen sanan nopeutta kunnes aika on ohi jolloin peli
-//asettuu takaisin alkuperäiseen nopeuteen
-function freeze(){
-  if (gamePaused || gameOver || currentlyfreezed || freezekaytetty) return;
-  freezekaytetty = true;
-  freezenappi.classList.add("hidden");//Piilota käytön jälkeen
-  currentlyfreezed = true;
-
-  if (typeof isMuted === 'undefined' || !isMuted) {
-    freezeSound.currentTime = 0;
-    freezeSound.play().catch(e => {});
-  }
-
-  //Hidastaa olemassa olevia sanoja
-  words.forEach(w => w.speed = 0.2);
-
-  //Nollaa 5 sekunti kuluttua
-  setTimeout(() => {
-    currentlyfreezed = false;
-    words.forEach(w => w.speed = w.originalspeed);
-  }, 5000);
-}
