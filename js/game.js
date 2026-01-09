@@ -477,16 +477,17 @@ function cardclicked(m){
 //ajastin luo aikahaasteeseen 60 sekunnin ajastimen yläpuolelle näyttöä sekä laskee itsestään 60 sekunttia kunnes aiheuttaa game over näytön
 function ajastin(){
   var timer = 60
+  aika.innerHTML = timer;
+  try { clearInterval(currenttime); } catch(e){}
+
   currenttime = setInterval(function () {
-    if(gamePaused != true){
-      timer = timer -1, aika.innerHTML = timer
+    if(gamePaused != true && !gameOver){
+      timer = timer - 1;
+      aika.innerHTML = timer
     }
-    if(timer == 0){
+    if(timer <= 0){
       clearInterval(currenttime);
-      gameOver = true;
-      gameoverOverlay.classList.add("active");
-      finalScoreDisplay.textContent = score;
-      finalkomboDisplay.innerHTML = isoinkombo;
+      gameoverscreen();
     }
   }, 1000);
 }
