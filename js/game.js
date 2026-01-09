@@ -627,22 +627,22 @@ function bomb(){
 //freeze asettaa pelille hitaamman spawntimerin ja hidastaa jokaisen sanan nopeutta kunnes aika on ohi jolloin peli
 //asettuu takaisin alkuperäiseen nopeuteen
 function freeze(){
-  if(freezekaytetty == false){
-    currentlyfreezed = true;
-    clearInterval(wordspawntimer);
-    wordtimer(slowspawnrate);
-    for (let i = words.length - 1; i >= 0; i--) {
-      words[i].speed = 0.2;
-    }
-    unfreeze = setTimeout(function(){ 
-      for (let i = words.length - 1; i >= 0; i--) {
-        words[i].speed = words[i].originalspeed;
-      }
-      clearInterval(wordspawntimer);
-      currentlyfreezed = false;
-      wordtimer(wordSpawnRate);
-    }, 5000);
-  }
+  if (gamePaused || gameOver || currentlyfreezed || freezekaytetty) return;
   freezekaytetty = true;
-  freezenappi.style.visibility = "hidden";
+  freezenappi.classList.add("hidden");//Piilota käytön jälkeen
+  currentlyfreezed = true;
+
+  if (typeof isMuted === 'undefined' || !isMuted) {
+    freezeSound.currentTime = 0;
+    freezeSound.play().catch(e => {});
+  }
+
+  //Hidastaa olemassa olevia sanoja
+  words.forEach(w => w.speed = 0.2);
+
+  //Nollaa 5 sekunti kuluttua
+  setTimeout(() => {
+    currentlyfreezed = false;
+    words.forEach(w => w.speed = w.originalspeed);
+  }, 5000);
 }
