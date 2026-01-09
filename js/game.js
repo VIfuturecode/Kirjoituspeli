@@ -8,11 +8,11 @@ const MUSIC_PATHS = {
 let currentMusic = null;
 
 //YLEINEN KLIKKAUSÄÄNI KÄYTTÖLIITTYMÄLLE
-const clickSound = new Audio("sounds/click.mp3");
-const hoverSound = new Audio("sounds/click.mp3");
-const gameOverSound = new Audio("sounds/gameover.mp3");
-const bombSound = new Audio("sounds/bomb.mp3");
-const freezeSound = new Audio("sounds/freeze.mp3");
+const clickSound = new Audio("sounds/click.mp3.wav");
+const hoverSound = new Audio("sounds/click.mp3.wav");
+const gameOverSound = new Audio("sounds/gameover.mp3.wav");
+const bombSound = new Audio("sounds/bomb.mp3.wav");
+const freezeSound = new Audio("sounds/freeze.mp3.wav");
 
 /* DOM */
 const gameScene = document.getElementById("game-scene");
@@ -93,16 +93,17 @@ function stopMusic() {
 //KLIKKAUSÄÄNI FUNKTIO
 function playClickSound() {
   if (typeof isMuted !== 'undefined' && isMuted) return;
-  clickSound.currentTime = 0;
-  clickSound.volume = 0.3;
-  clickSound.play().catch(e => console.log("Click sound failed:", e));
+  // Luodaan uusi Audio-olio joka kerta, jotta ääni voi soida päällekkäin ja varmasti alusta
+  const sound = new Audio("/sounds/click.mp3");
+  sound.volume = 0.3;
+  sound.play().catch(e => console.log("Click sound failed:", e));
 }
 
 function playHoverSound() {
   if (typeof isMuted !== 'undefined' && isMuted) return;
-  hoverSound.currentTime = 0;
-  hoverSound.volume = 0.1;
-  hoverSound.play().catch(e => console.log("Hover sound failed:", e));
+  const sound = new Audio("/sounds/click.mp3");
+  sound.volume = 0.1;
+  sound.play().catch(e => console.log("Hover sound failed:", e));
 }
 
 /* SANOJEN LIIKKUMINEN  */
